@@ -12,59 +12,42 @@ interface MagnetProps {
 
 export function Magnet({
   children,
-  padding = 150,
-  strength = 3,
-  activeTransition = "transform 0.3s ease-out",
-  inactiveTransition = "transform 0.6s ease-in-out",
+  strength = 4,
+  activeTransition = "transform 0.15s ease-out",
+  inactiveTransition = "transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)",
   className = "",
   style = {},
 }: MagnetProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [isActive, setIsActive] = useState(false);
 
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!ref.current) return;
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const el = ref.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    const distX = (e.clientX - centerX) / strength;
+    const distY = (e.clientY - centerY) / strength;
 
-      const rect = ref.current.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
+    el.style.transition = activeTransition;
+    el.style.transform = `translate3d(${distX}px, ${distY}px, 0)`;
+  };
 
-      const distX = e.clientX - centerX;
-      const distY = e.clientY - centerY;
-
-      const withinX =
-        e.clientX >= rect.left - padding && e.clientX <= rect.right + padding;
-      const withinY =
-        e.clientY >= rect.top - padding && e.clientY <= rect.bottom + padding;
-
-      if (withinX && withinY) {
-        setIsActive(true);
-        setPosition({
-          x: distX / strength,
-          y: distY / strength,
-        });
-      } else {
-        setIsActive(false);
-        setPosition({ x: 0, y: 0 });
-      }
-    };
-
-    window.addEventListener("mousemove", handleMouseMove, { passive: true });
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, [padding, strength]);
+  const handleMouseLeave = () => {
+    const el = ref.current;
+    if (!el) return;
+    el.style.transition = inactiveTransition;
+    el.style.transform = "translate3d(0, 0, 0)";
+  };
 
   return (
     <div
       ref={ref}
       className={className}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
       style={{
         ...style,
-        transform: `translate3d(${position.x}px, ${position.y}px, 0)`,
-        transition: isActive ? activeTransition : inactiveTransition,
         willChange: "transform",
       }}
     >

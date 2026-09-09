@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react";
  * Adds .is-visible to elements with .reveal / .reveal-left / .reveal-right.
  * Zero Framer Motion cost, GPU-only CSS transitions = buttery 60fps.
  */
-export function useReveal(rootMargin = "0px 0px -60px 0px") {
+export function useReveal(rootMargin = "250px 0px 50px 0px") {
   const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -17,20 +17,33 @@ export function useReveal(rootMargin = "0px 0px -60px 0px") {
     );
     if (!targets.length) return;
 
+    // Reveal immediately if already within or above the viewport
+    const vh = window.innerHeight;
+    targets.forEach((t) => {
+      const rect = t.getBoundingClientRect();
+      if (rect.top < vh + 200) {
+        t.classList.add("is-visible");
+      }
+    });
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("is-visible");
-            // Once visible, stop observing — avoids reverse pop-out
             observer.unobserve(entry.target);
           }
         });
       },
-      { rootMargin, threshold: 0.1 }
+      { rootMargin, threshold: 0 }
     );
 
-    targets.forEach((t) => observer.observe(t));
+    targets.forEach((t) => {
+      if (!t.classList.contains("is-visible")) {
+        observer.observe(t);
+      }
+    });
+
     return () => observer.disconnect();
   }, [rootMargin]);
 
@@ -39,8 +52,9 @@ export function useReveal(rootMargin = "0px 0px -60px 0px") {
 
 /**
  * useRevealSection — attach to a section's container div ref.
- * All .reveal children inside will animate in on scroll.
+ * All .reveal children inside will animate in smoothly in advance as user scrolls.
  */
 export function useRevealSection() {
-  return useReveal("0px 0px -40px 0px");
+  return useReveal("250px 0px 50px 0px");
 }
+

@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { profile } from "@/data/portfolio";
 
 export function Preloader() {
+  const [mounted, setMounted] = useState(false);
   const [progress, setProgress] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const dismissedRef = useRef(false);
@@ -20,6 +21,8 @@ export function Preloader() {
   };
 
   useEffect(() => {
+    setMounted(true);
+
     // Check if user already saw the intro loader in current session
     try {
       const hasLoaded = sessionStorage.getItem("mf_portfolio_loaded");
@@ -32,12 +35,12 @@ export function Preloader() {
       // Ignore storage errors
     }
 
-    // Hard failsafe: Unconditionally dismiss after 900ms max so it NEVER gets stuck
+    // Hard failsafe: Unconditionally dismiss so it NEVER blocks user
     const failsafeTimer = setTimeout(() => {
       dismiss();
     }, 900);
 
-    const duration = 650; // Fast and snappy 650ms
+    const duration = 550; // Smooth 550ms intro
     const startTime = performance.now();
     let frameId: number;
 
@@ -45,7 +48,7 @@ export function Preloader() {
       if (dismissedRef.current) return;
       const elapsed = currentTime - startTime;
       const t = Math.min(1, elapsed / duration);
-      
+
       // Smooth easeOutCubic
       const easedT = 1 - Math.pow(1 - t, 3);
       const currentVal = Math.min(100, Math.floor(easedT * 100));
@@ -57,7 +60,7 @@ export function Preloader() {
         setProgress(100);
         setTimeout(() => {
           dismiss();
-        }, 150);
+        }, 80);
       }
     };
 
@@ -69,6 +72,8 @@ export function Preloader() {
     };
   }, []);
 
+  if (!mounted) return null;
+
   return (
     <AnimatePresence>
       {isLoading && (
@@ -79,7 +84,7 @@ export function Preloader() {
             opacity: 0,
             y: "-100%",
             transition: {
-              duration: 0.5,
+              duration: 0.28,
               ease: [0.76, 0, 0.24, 1],
             },
           }}

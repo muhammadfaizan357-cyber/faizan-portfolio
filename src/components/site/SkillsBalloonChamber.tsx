@@ -1234,13 +1234,30 @@ export function SkillsBalloonChamber() {
     domElem.addEventListener("mouseleave", onPointerLeave);
 
     // ─────────────────────────────────────────────────────────────────────────────
-    // 60FPS SMOOTH PHYSICS & ANIMATION ENGINE
+    // 60FPS SMOOTH PHYSICS & ANIMATION ENGINE (Viewport-Optimized)
     // ─────────────────────────────────────────────────────────────────────────────
     let rafId = 0;
     let clock = 0;
+    let isChamberVisible = true;
+    let isRunning = false;
+
+    function startChamberLoop() {
+      if (isRunning || destroyed || !isChamberVisible) return;
+      isRunning = true;
+      rafId = requestAnimationFrame(animate);
+    }
+
+    function stopChamberLoop() {
+      if (!isRunning) return;
+      isRunning = false;
+      cancelAnimationFrame(rafId);
+    }
 
     function animate() {
-      if (destroyed) return;
+      if (destroyed || !isChamberVisible) {
+        isRunning = false;
+        return;
+      }
       rafId = requestAnimationFrame(animate);
       clock += 0.016;
 
@@ -1464,7 +1481,21 @@ export function SkillsBalloonChamber() {
       renderer.render(scene, camera);
     }
 
-    rafId = requestAnimationFrame(animate);
+    startChamberLoop();
+
+    // --- Viewport Intersection Observer (Freezes Three.js when scrolled away) ---
+    const chamberObs = new IntersectionObserver(
+      ([entry]) => {
+        isChamberVisible = !!entry?.isIntersecting;
+        if (isChamberVisible) {
+          startChamberLoop();
+        } else {
+          stopChamberLoop();
+        }
+      },
+      { threshold: 0.05 }
+    );
+    chamberObs.observe(container);
 
     // --- Resize Observer ---
     const handleResize = () => {
@@ -1482,6 +1513,7 @@ export function SkillsBalloonChamber() {
     return () => {
       destroyed = true;
       cancelAnimationFrame(rafId);
+      chamberObs.disconnect();
       window.removeEventListener("resize", handleResize);
       domElem.removeEventListener("click", onPointerDown);
       domElem.removeEventListener("mousemove", onPointerMove);
