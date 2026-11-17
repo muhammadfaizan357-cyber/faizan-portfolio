@@ -226,10 +226,10 @@ function Hero() {
               </span>
               <div>
                 <div className="text-sm sm:text-base font-bold text-neutral-900 dark:text-white leading-tight">
-                  7 Projects (3 Live)
+                  8 Projects (4 Live)
                 </div>
                 <div className="text-[11px] text-neutral-500 dark:text-white/60">
-                  CookSmart, FanHub &amp; Meraki
+                  CookSmart, FanHub, Meraki &amp; Hamdan
                 </div>
               </div>
             </div>

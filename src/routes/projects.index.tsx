@@ -34,7 +34,7 @@ const FILTER_GROUPS = [
 
 const stats = [
   { label: "Total Projects", value: `${projects.length} Built`, icon: Layers },
-  { label: "Live Deployed", value: "3 Live Apps", icon: Zap },
+  { label: "Live Deployed", value: "4 Live Apps", icon: Zap },
   { label: "Backend Stacks", value: ".NET & Laravel", icon: Database },
   { label: "Databases", value: "SQL & MySQL", icon: CheckCircle2 },
 ];

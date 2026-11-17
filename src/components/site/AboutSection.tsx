@@ -28,8 +28,8 @@ const featurePills = [
 
 const aboutStats = [
   {
-    value: "7",
-    label: "Full-Stack Projects (3 Live)",
+    value: "8",
+    label: "Full-Stack Projects (4 Live)",
     icon: FolderOpen,
   },
   {
@@ -680,6 +680,15 @@ export function AboutSection() {
                 className="text-blue-600 dark:text-blue-400 font-bold underline underline-offset-4 hover:opacity-80"
               >
                 Meraki
+              </a>
+              , and{" "}
+              <a
+                href="https://hamdan-flavors-unfold.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 dark:text-blue-400 font-bold underline underline-offset-4 hover:opacity-80"
+              >
+                Hamdan Fastfood
               </a>
               .
             </p>

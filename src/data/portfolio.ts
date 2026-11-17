@@ -2,6 +2,7 @@ import fanhubImg from "@/assets/project-fanhub.png";
 import cooksmartImg from "@/assets/project-cooksmart.png";
 import habitateImg from "@/assets/project-habitate.jpg";
 import merakiImg from "@/assets/project-meraki.jpg";
+import hamdanImg from "@/assets/project-hamdan.jpg";
 
 export interface Project {
   slug: string;
@@ -220,6 +221,68 @@ export const projects: Project[] = [
     ],
     featured: true,
     liveUrl: "https://pixel-perfect-replay-10777.lovable.app/",
+    githubUrl: "https://github.com/muhammadfaizan01-DEV",
+  },
+  {
+    slug: "hamdan-fastfood",
+    title: "Hamdan Fastfood",
+    category: "Restaurant Ordering & Catering Web App",
+    filterGroup: "E-Commerce & CMS",
+    year: "2026",
+    role: "Full-Stack Web Developer",
+    client: "Live Deployed Web Application",
+    services: [
+      "React & TypeScript",
+      "TanStack Start",
+      "Tailwind CSS",
+      "WhatsApp Order Flow",
+      "Responsive Restaurant UI",
+    ],
+    image: hamdanImg,
+    summary:
+      "Modern desi & fast-food restaurant web application featuring an interactive menu showcase, event catering inquiry flow, and direct WhatsApp ordering.",
+    overview:
+      "Hamdan Fastfood is a live deployed restaurant storefront built for fast mobile browsing and frictionless ordering. Customers explore freshly prepared Pakistani biryani, crispy broast, sizzling BBQ, and catering packages, then place orders or catering inquiries directly via WhatsApp in one tap.",
+    problem:
+      "Local restaurants often rely on slow PDF menus or third-party delivery apps with high commissions, making it hard for customers to browse dishes and order directly.",
+    whatIBuilt: [
+      "Full-bleed editorial restaurant hero with instant jump-to-menu and direct WhatsApp ordering CTAs",
+      "Categorized menu browsing (Biryani, Broast, BBQ & Everyday Favourites) optimized for mobile and desktop viewports",
+      "Dedicated Event Catering section for weddings, birthdays, and family gatherings with pre-filled WhatsApp inquiry links",
+      "Fast SSR delivery with preloaded hero imagery and responsive sticky header navigation",
+    ],
+    challenges: [
+      {
+        challenge:
+          "Making ordering effortless for local customers without forcing them through a lengthy account registration.",
+        solution:
+          "Integrated structured `wa.me` deep links with pre-filled order messages directly from the header, hero, and catering CTAs.",
+      },
+      {
+        challenge:
+          "Keeping high-resolution food photography crisp without hurting First Contentful Paint on mobile.",
+        solution:
+          "Used `fetchPriority='high'` preloading on the hero photograph alongside lightweight CSS overlays and clean typographic hierarchy.",
+      },
+    ],
+    screenshots: [
+      {
+        src: hamdanImg,
+        caption: "Hamdan Fastfood — Desi & Fast Food showcase with direct WhatsApp ordering",
+      },
+    ],
+    highlights: [
+      "Interactive restaurant menu & catering showcase live on Vercel",
+      "One-tap WhatsApp direct ordering & catering inquiry flow",
+      "Mobile-first responsive layout with fast SSR loading",
+    ],
+    metrics: [
+      { label: "Category", value: "Food & Orders" },
+      { label: "Stack", value: "React + SSR" },
+      { label: "Status", value: "Live on Vercel" },
+    ],
+    featured: true,
+    liveUrl: "https://hamdan-flavors-unfold.vercel.app/",
     githubUrl: "https://github.com/muhammadfaizan01-DEV",
   },
   {
@@ -545,7 +608,7 @@ export const faqs = [
   },
   {
     q: "Can I see your live deployed projects?",
-    a: "Yes! You can try CookSmart (http://cook-smart.runasp.net/), FanHub Plus (https://fan-hub-plus.runasp.net/), and Meraki Storefront (https://pixel-perfect-replay-10777.lovable.app/) live in your browser, or inspect them directly in the interactive Device Preview panel.",
+    a: "Yes! You can try CookSmart (http://cook-smart.runasp.net/), FanHub Plus (https://fan-hub-plus.runasp.net/), Meraki Storefront (https://pixel-perfect-replay-10777.lovable.app/), and Hamdan Fastfood (https://hamdan-flavors-unfold.vercel.app/) live in your browser, or inspect them directly in the interactive Device Preview panel.",
   },
   {
     q: "Are you available for internships, junior/mid full-stack roles, or freelance work?",
