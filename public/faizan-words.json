@@ -1,0 +1,344 @@
+[
+  {
+    "type": "WordBoundary",
+    "text": "Hi",
+    "start": 0.103,
+    "duration": 0.271
+  },
+  {
+    "type": "WordBoundary",
+    "text": "I'm",
+    "start": 0.825,
+    "duration": 0.142
+  },
+  {
+    "type": "WordBoundary",
+    "text": "Muhammad",
+    "start": 0.967,
+    "duration": 0.387
+  },
+  {
+    "type": "WordBoundary",
+    "text": "Faizan",
+    "start": 1.353,
+    "duration": 0.464
+  },
+  {
+    "type": "WordBoundary",
+    "text": "a",
+    "start": 2.204,
+    "duration": 0.039
+  },
+  {
+    "type": "WordBoundary",
+    "text": "Full-Stack",
+    "start": 2.255,
+    "duration": 0.644
+  },
+  {
+    "type": "WordBoundary",
+    "text": "Web",
+    "start": 2.9,
+    "duration": 0.168
+  },
+  {
+    "type": "WordBoundary",
+    "text": "Developer",
+    "start": 3.08,
+    "duration": 0.451
+  },
+  {
+    "type": "WordBoundary",
+    "text": "based",
+    "start": 3.544,
+    "duration": 0.361
+  },
+  {
+    "type": "WordBoundary",
+    "text": "in",
+    "start": 3.918,
+    "duration": 0.09
+  },
+  {
+    "type": "WordBoundary",
+    "text": "Karachi",
+    "start": 4.021,
+    "duration": 0.709
+  },
+  {
+    "type": "WordBoundary",
+    "text": "Pakistan",
+    "start": 4.884,
+    "duration": 0.722
+  },
+  {
+    "type": "WordBoundary",
+    "text": "I",
+    "start": 6.031,
+    "duration": 0.064
+  },
+  {
+    "type": "WordBoundary",
+    "text": "specialize",
+    "start": 6.095,
+    "duration": 0.696
+  },
+  {
+    "type": "WordBoundary",
+    "text": "in",
+    "start": 6.791,
+    "duration": 0.116
+  },
+  {
+    "type": "WordBoundary",
+    "text": "building",
+    "start": 6.907,
+    "duration": 0.361
+  },
+  {
+    "type": "WordBoundary",
+    "text": "fast",
+    "start": 7.268,
+    "duration": 0.683
+  },
+  {
+    "type": "WordBoundary",
+    "text": "secure",
+    "start": 8.131,
+    "duration": 0.515
+  },
+  {
+    "type": "WordBoundary",
+    "text": "web",
+    "start": 8.647,
+    "duration": 0.245
+  },
+  {
+    "type": "WordBoundary",
+    "text": "applications",
+    "start": 8.892,
+    "duration": 0.735
+  },
+  {
+    "type": "WordBoundary",
+    "text": "using",
+    "start": 9.639,
+    "duration": 0.283
+  },
+  {
+    "type": "WordBoundary",
+    "text": "PHP",
+    "start": 9.923,
+    "duration": 0.799
+  },
+  {
+    "type": "WordBoundary",
+    "text": "Laravel",
+    "start": 11.224,
+    "duration": 0.631
+  },
+  {
+    "type": "WordBoundary",
+    "text": "MySQL",
+    "start": 12.268,
+    "duration": 0.799
+  },
+  {
+    "type": "WordBoundary",
+    "text": "and",
+    "start": 13.325,
+    "duration": 0.09
+  },
+  {
+    "type": "WordBoundary",
+    "text": "React",
+    "start": 13.415,
+    "duration": 0.619
+  },
+  {
+    "type": "WordBoundary",
+    "text": "From",
+    "start": 14.472,
+    "duration": 0.168
+  },
+  {
+    "type": "WordBoundary",
+    "text": "custom",
+    "start": 14.639,
+    "duration": 0.412
+  },
+  {
+    "type": "WordBoundary",
+    "text": "business",
+    "start": 15.052,
+    "duration": 0.387
+  },
+  {
+    "type": "WordBoundary",
+    "text": "platforms",
+    "start": 15.451,
+    "duration": 0.696
+  },
+  {
+    "type": "WordBoundary",
+    "text": "and",
+    "start": 16.147,
+    "duration": 0.206
+  },
+  {
+    "type": "WordBoundary",
+    "text": "REST",
+    "start": 16.353,
+    "duration": 0.387
+  },
+  {
+    "type": "WordBoundary",
+    "text": "APIs",
+    "start": 16.856,
+    "duration": 0.825
+  },
+  {
+    "type": "WordBoundary",
+    "text": "to",
+    "start": 17.951,
+    "duration": 0.077
+  },
+  {
+    "type": "WordBoundary",
+    "text": "high-converting",
+    "start": 18.041,
+    "duration": 0.631
+  },
+  {
+    "type": "WordBoundary",
+    "text": "Shopify",
+    "start": 18.686,
+    "duration": 0.799
+  },
+  {
+    "type": "WordBoundary",
+    "text": "and",
+    "start": 19.652,
+    "duration": 0.193
+  },
+  {
+    "type": "WordBoundary",
+    "text": "WordPress",
+    "start": 19.845,
+    "duration": 0.58
+  },
+  {
+    "type": "WordBoundary",
+    "text": "stores",
+    "start": 20.425,
+    "duration": 0.49
+  },
+  {
+    "type": "WordBoundary",
+    "text": "I",
+    "start": 21.314,
+    "duration": 0.064
+  },
+  {
+    "type": "WordBoundary",
+    "text": "deliver",
+    "start": 21.379,
+    "duration": 0.387
+  },
+  {
+    "type": "WordBoundary",
+    "text": "clean",
+    "start": 21.765,
+    "duration": 0.477
+  },
+  {
+    "type": "WordBoundary",
+    "text": "scalable",
+    "start": 22.513,
+    "duration": 0.515
+  },
+  {
+    "type": "WordBoundary",
+    "text": "solutions",
+    "start": 23.041,
+    "duration": 0.606
+  },
+  {
+    "type": "WordBoundary",
+    "text": "tailored",
+    "start": 23.647,
+    "duration": 0.425
+  },
+  {
+    "type": "WordBoundary",
+    "text": "to",
+    "start": 24.085,
+    "duration": 0.103
+  },
+  {
+    "type": "WordBoundary",
+    "text": "your",
+    "start": 24.188,
+    "duration": 0.129
+  },
+  {
+    "type": "WordBoundary",
+    "text": "business",
+    "start": 24.317,
+    "duration": 0.374
+  },
+  {
+    "type": "WordBoundary",
+    "text": "goals",
+    "start": 24.704,
+    "duration": 0.528
+  },
+  {
+    "type": "WordBoundary",
+    "text": "Let's",
+    "start": 25.644,
+    "duration": 0.155
+  },
+  {
+    "type": "WordBoundary",
+    "text": "connect",
+    "start": 25.799,
+    "duration": 0.503
+  },
+  {
+    "type": "WordBoundary",
+    "text": "and",
+    "start": 26.546,
+    "duration": 0.206
+  },
+  {
+    "type": "WordBoundary",
+    "text": "build",
+    "start": 26.856,
+    "duration": 0.361
+  },
+  {
+    "type": "WordBoundary",
+    "text": "your",
+    "start": 27.229,
+    "duration": 0.09
+  },
+  {
+    "type": "WordBoundary",
+    "text": "next",
+    "start": 27.32,
+    "duration": 0.283
+  },
+  {
+    "type": "WordBoundary",
+    "text": "project",
+    "start": 27.603,
+    "duration": 0.425
+  },
+  {
+    "type": "WordBoundary",
+    "text": "together",
+    "start": 28.028,
+    "duration": 0.528
+  }
+]

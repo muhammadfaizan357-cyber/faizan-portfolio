@@ -1,23 +1,19 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUp } from "lucide-react";
 
 export function ScrollToTop() {
   const [isVisible, setIsVisible] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-      setScrollProgress(progress);
-
-      if (scrollTop > 320) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        ticking = false;
+        const shouldShow = window.scrollY > 360;
+        setIsVisible((prev) => (prev !== shouldShow ? shouldShow : prev));
+      });
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -25,59 +21,20 @@ export function ScrollToTop() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
-
-  const circumference = 2 * Math.PI * 18;
-  const strokeDashoffset = circumference - (scrollProgress / 100) * circumference;
+  if (!isVisible) return null;
 
   return (
-    <AnimatePresence>
-      {isVisible && (
-        <motion.div
-          initial={{ opacity: 0, scale: 0.6, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.6, y: 20 }}
-          transition={{ duration: 0.25, ease: "easeOut" }}
-          className="fixed bottom-6 right-6 z-50"
-        >
-          <button
-            onClick={scrollToTop}
-            aria-label="Scroll back to top"
-            title={`Scroll to top (${Math.round(scrollProgress)}%)`}
-            className="group relative flex size-12 items-center justify-center rounded-full border border-border/80 bg-background/90 text-foreground backdrop-blur-xl shadow-2xl transition-all duration-300 hover:border-primary hover:text-primary hover:scale-110 active:scale-95 cursor-pointer"
-          >
-            {/* SVG Progress Ring */}
-            <svg className="absolute inset-0 size-full -rotate-90 pointer-events-none" viewBox="0 0 44 44">
-              <circle
-                cx="22"
-                cy="22"
-                r="18"
-                className="stroke-muted/30 fill-none"
-                strokeWidth="2.5"
-              />
-              <circle
-                cx="22"
-                cy="22"
-                r="18"
-                className="stroke-primary fill-none transition-all duration-150"
-                strokeWidth="2.5"
-                strokeDasharray={circumference}
-                strokeDashoffset={strokeDashoffset}
-                strokeLinecap="round"
-              />
-            </svg>
-
-            {/* Icon */}
-            <ArrowUp className="size-4 transition-transform duration-300 group-hover:-translate-y-0.5" />
-          </button>
-        </motion.div>
-      )}
-    </AnimatePresence>
+    <div className="fixed bottom-6 right-5 sm:right-6 z-50">
+      <button
+        type="button"
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        aria-label="Scroll back to top"
+        title="Scroll to top"
+        className="group flex size-11 items-center justify-center rounded-full border border-blue-500/40 dark:border-blue-500/50 bg-white/95 dark:bg-[#080c14]/90 text-blue-600 dark:text-blue-400 backdrop-blur-xl shadow-[0_8px_24px_rgba(15,23,42,0.12)] dark:shadow-[0_8px_28px_rgba(0,0,0,0.65)] transition-all duration-200 hover:border-blue-500 hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 hover:text-white hover:scale-110 active:scale-95 cursor-pointer"
+      >
+        <ArrowUp className="size-4 stroke-[2.5] transition-transform duration-200 group-hover:-translate-y-0.5" />
+      </button>
+    </div>
   );
 }
 

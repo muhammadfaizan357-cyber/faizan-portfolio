@@ -1,10 +1,25 @@
 import { useState } from "react";
-import { createFileRoute } from "@tanstack/react-router";
-import { motion } from "framer-motion";
-import { Mail, Phone, ArrowUpRight, Copy, Check, Send, MapPin, Clock, MessageCircle, Github, Linkedin } from "lucide-react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import {
+  Mail,
+  Phone,
+  ArrowUpRight,
+  ArrowLeft,
+  Copy,
+  Check,
+  Send,
+  MapPin,
+  Github,
+  Linkedin,
+  Download,
+} from "lucide-react";
 import { toast } from "sonner";
 import { profile } from "@/data/portfolio";
-import { Frame } from "@/components/site/Frame";
+import {
+  WhatsAppIcon,
+  GitHubIcon,
+  LinkedInIcon,
+} from "@/components/site/BrandIcons";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
@@ -14,7 +29,7 @@ export const Route = createFileRoute("/contact")({
       { title: `Contact — ${profile.name}` },
       {
         name: "description",
-        content: `Get in touch with ${profile.name} for Laravel, Full-Stack Web Development, and E-Commerce projects.`,
+        content: `Get in touch with ${profile.name} for C# / ASP.NET Core, Angular, PHP, Laravel, and E-Commerce projects.`,
       },
     ],
   }),
@@ -24,6 +39,14 @@ export const Route = createFileRoute("/contact")({
 function ContactPage() {
   const [copied, setCopied] = useState(false);
   const [sent, setSent] = useState(false);
+  const [subject, setSubject] = useState("");
+
+  const quickTags = [
+    "C# / ASP.NET Core & Angular App",
+    "PHP & Laravel Platform",
+    "Custom E-Commerce / Shopify",
+    "RESTful API & Database Tuning",
+  ];
 
   const copyEmail = () => {
     navigator.clipboard.writeText(profile.email);
@@ -33,233 +56,290 @@ function ContactPage() {
   };
 
   return (
-    <div className="pt-24 pb-14 sm:pt-32 sm:pb-20">
-      <Frame>
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-16">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="inline-flex items-center gap-2 rounded-full border border-border/80 bg-surface/60 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider backdrop-blur-md mb-4 shadow-sm"
+    <div className="min-h-screen bg-[#f8fafc] dark:bg-[#080c14] text-neutral-900 dark:text-white pt-24 sm:pt-28 md:pt-32 pb-20 sm:pb-28 relative overflow-hidden transition-colors duration-300">
+      <div className="relative z-10 mx-auto max-w-[1340px] px-5 sm:px-8 lg:px-12">
+        <div className="mb-8">
+          <Link
+            to="/"
+            className="inline-flex items-center gap-2 rounded-full border border-neutral-300 dark:border-white/15 bg-white dark:bg-white/[0.04] hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 px-4 py-2 text-xs font-bold uppercase tracking-wider text-neutral-800 dark:text-white/85 transition-all shadow-xs"
           >
-            <span className="size-2 rounded-full bg-emerald-500 animate-ping" />
-            <span className="text-foreground">Available For Projects</span>
-          </motion.div>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="font-display text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-foreground"
-          >
-            Let's Work Together
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.15 }}
-            className="mt-6 text-base sm:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto"
-          >
-            Have a Laravel project in mind, need database or REST API development, or want to discuss an e-commerce build? I will respond promptly.
-          </motion.p>
+            <ArrowLeft className="size-4" />
+            <span>Back to Home Portfolio</span>
+          </Link>
         </div>
 
-        {/* 2-Column Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-          {/* Left Column: Direct Info */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            className="lg:col-span-5 space-y-6"
-          >
-            <div className="rounded-[2.5rem] border border-border/70 bg-surface/40 p-6 sm:p-8 backdrop-blur-xl space-y-6">
-              <div>
-                <h3 className="font-display text-2xl font-bold uppercase tracking-tight text-foreground">
-                  Direct Contact
-                </h3>
-                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mt-1">
-                  Feel free to email directly, call during business hours (PKT), or reach out on WhatsApp.
-                </p>
-              </div>
+        <div className="mb-12 space-y-3">
+          <div className="inline-flex items-center gap-2 rounded-full border border-blue-500/35 dark:border-blue-500/40 bg-blue-500/10 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400">
+            <Mail className="size-3.5 text-blue-600 dark:text-blue-400" />
+            <span>GET IN TOUCH</span>
+          </div>
+          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-neutral-900 dark:text-white">
+            LET&apos;S WORK <span className="text-blue-600 dark:text-blue-400">TOGETHER</span>
+          </h1>
+        </div>
 
-              {/* Email Pill */}
-              <div className="space-y-2">
-                <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
-                  Email (Click to copy)
-                </p>
-                <button
-                  onClick={copyEmail}
-                  className="w-full flex items-center justify-between gap-3 rounded-2xl border border-border/80 bg-background/80 p-4 transition-all duration-300 hover:border-primary/60 hover:bg-background group cursor-pointer"
-                >
-                  <div className="flex items-center gap-3 truncate">
-                    <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                      <Mail className="size-4" />
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          {/* Left Column */}
+          <div className="lg:col-span-5">
+            <div className="rounded-3xl border border-neutral-200/90 dark:border-white/10 bg-white dark:bg-[#0c101a]/95 p-6 sm:p-8 backdrop-blur-xl shadow-[0_12px_35px_-12px_rgba(15,23,42,0.08)] dark:shadow-[0_20px_55px_rgba(0,0,0,0.6)] space-y-5">
+              <h3 className="font-display text-xl sm:text-2xl font-black uppercase tracking-wide text-neutral-900 dark:text-white">
+                Direct Contact Channels
+              </h3>
+
+              <button
+                type="button"
+                onClick={copyEmail}
+                className="w-full flex items-center justify-between gap-3 rounded-2xl border border-neutral-200 dark:border-white/10 bg-neutral-50/80 dark:bg-white/[0.03] hover:border-blue-500/60 p-4 transition-all group cursor-pointer"
+              >
+                <div className="flex items-center gap-3.5 min-w-0">
+                  <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-blue-500/15 text-blue-600 dark:text-blue-400 border border-blue-500/35">
+                    <Mail className="size-5" />
+                  </span>
+                  <div className="text-left min-w-0">
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 block">
+                      Official Email (Click to Copy)
                     </span>
-                    <span className="text-xs sm:text-sm font-semibold text-foreground truncate font-mono">
+                    <span className="text-xs sm:text-sm font-semibold text-neutral-900 dark:text-white truncate block">
                       {profile.email}
                     </span>
                   </div>
-                  <span className="flex size-8 shrink-0 items-center justify-center rounded-full border border-border bg-surface text-muted-foreground group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary transition-all">
-                    {copied ? <Check className="size-3.5 text-emerald-400" /> : <Copy className="size-3.5" />}
+                </div>
+                <span className="flex size-9 shrink-0 items-center justify-center rounded-xl border border-neutral-300 dark:border-white/15 bg-white dark:bg-black/30 text-neutral-700 dark:text-white/75 group-hover:bg-blue-600 group-hover:text-white transition-all">
+                  {copied ? <Check className="size-4" /> : <Copy className="size-4" />}
+                </span>
+              </button>
+
+              <a
+                href={profile.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between gap-3 rounded-2xl border border-neutral-200 dark:border-white/10 bg-neutral-50/80 dark:bg-white/[0.03] hover:border-emerald-500/60 p-4 transition-all text-neutral-900 dark:text-white group"
+              >
+                <div className="flex items-center gap-3.5">
+                  <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-emerald-500/15 text-[#25D366] dark:text-emerald-400 border border-emerald-500/30">
+                    <WhatsAppIcon className="size-5" />
                   </span>
-                </button>
+                  <div>
+                    <span className="text-[11px] text-emerald-600 dark:text-emerald-400 font-bold uppercase tracking-wider block">
+                      WhatsApp / Direct Chat
+                    </span>
+                    <span className="text-sm sm:text-base font-extrabold text-neutral-900 dark:text-white block">
+                      {profile.formattedPhone}
+                    </span>
+                  </div>
+                </div>
+                <ArrowUpRight className="size-4 text-neutral-500 dark:text-white/60 group-hover:text-emerald-500" />
+              </a>
+
+              <div className="flex items-center gap-3.5 rounded-2xl border border-neutral-200 dark:border-white/10 bg-neutral-50/80 dark:bg-white/[0.03] p-4 text-neutral-900 dark:text-white">
+                <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-blue-500/15 text-blue-600 dark:text-blue-400 border border-blue-500/35">
+                  <MapPin className="size-5" />
+                </span>
+                <div>
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-500 dark:text-white/50 block">
+                    Location
+                  </span>
+                  <span className="text-sm sm:text-base font-bold text-neutral-900 dark:text-white">
+                    {profile.location}
+                  </span>
+                </div>
               </div>
 
-              {/* Phone & WhatsApp */}
-              <div className="space-y-2">
-                <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
-                  Call / WhatsApp
-                </p>
+              <div className="pt-4 border-t border-neutral-200/80 dark:border-white/10 flex flex-wrap gap-2.5">
+                <a
+                  href={profile.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-xl border border-blue-500/40 bg-blue-500/10 hover:bg-[#0A66C2] hover:text-white px-4 py-2.5 text-xs font-extrabold uppercase tracking-wider text-blue-600 dark:text-blue-400 transition-all"
+                >
+                  <LinkedInIcon className="size-4" />
+                  <span>LinkedIn</span>
+                  <ArrowUpRight className="size-3.5" />
+                </a>
+
+                <a
+                  href={profile.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-xl border border-neutral-300 dark:border-white/15 bg-white dark:bg-white/[0.04] hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-neutral-800 dark:text-white transition-all"
+                >
+                  <GitHubIcon className="size-4" />
+                  <span>GitHub</span>
+                  <ArrowUpRight className="size-3.5" />
+                </a>
+
                 <a
                   href={profile.whatsapp}
                   target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center justify-between gap-3 rounded-2xl border border-border/80 bg-background/80 p-4 transition-all duration-300 hover:border-emerald-500/60 hover:bg-background group text-foreground"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-xl border border-emerald-500/40 bg-emerald-500/10 hover:bg-[#25D366] hover:text-white px-4 py-2.5 text-xs font-extrabold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 transition-all"
                 >
-                  <div className="flex items-center gap-3">
-                    <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-400">
-                      <Phone className="size-4" />
-                    </span>
-                    <div>
-                      <span className="text-xs sm:text-sm font-semibold font-mono block">{profile.phone}</span>
-                      <span className="text-[10px] text-emerald-400 font-medium">Available on WhatsApp & Call</span>
-                    </div>
-                  </div>
-                  <ArrowUpRight className="size-4 text-muted-foreground group-hover:text-emerald-400 transition-colors" />
+                  <WhatsAppIcon className="size-4" />
+                  <span>WhatsApp</span>
+                  <ArrowUpRight className="size-3.5" />
+                </a>
+
+                <a
+                  href="/Muhammad-Faizan-CV.pdf"
+                  download="Muhammad-Faizan-CV.pdf"
+                  className="inline-flex items-center gap-2 rounded-xl border border-neutral-300 dark:border-white/15 bg-white dark:bg-white/[0.04] hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-neutral-800 dark:text-white transition-all"
+                >
+                  <Download className="size-4 text-blue-600 dark:text-blue-400" />
+                  <span>CV PDF</span>
                 </a>
               </div>
-
-              {/* Location & Timezone */}
-              <div className="flex items-center justify-between gap-3 rounded-2xl border border-border/60 bg-background/50 p-4 text-foreground text-xs sm:text-sm">
-                <div className="flex items-center gap-2.5">
-                  <MapPin className="size-4 text-primary shrink-0" />
-                  <span className="font-semibold">{profile.location}</span>
-                </div>
-                <div className="flex items-center gap-1.5 text-muted-foreground text-xs">
-                  <Clock className="size-3.5 text-primary" />
-                  <span>PKT (UTC+5)</span>
-                </div>
-              </div>
-
-              {/* Socials & Repositories */}
-              <div className="pt-2 border-t border-border/40">
-                <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mb-3">
-                  Profiles & Repositories
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  <a
-                    href={profile.github}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 rounded-full border border-border/70 bg-background/80 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground transition-all duration-200 hover:border-primary hover:text-primary hover:scale-105"
-                  >
-                    <Github className="size-3.5" />
-                    <span>GitHub</span>
-                    <ArrowUpRight className="size-3" />
-                  </a>
-
-                  <a
-                    href={profile.linkedin}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 rounded-full border border-border/70 bg-background/80 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground transition-all duration-200 hover:border-primary hover:text-primary hover:scale-105"
-                  >
-                    <Linkedin className="size-3.5" />
-                    <span>LinkedIn</span>
-                    <ArrowUpRight className="size-3" />
-                  </a>
-
-                  <a
-                    href={profile.whatsapp}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/40 bg-emerald-500/10 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-emerald-400 transition-all duration-200 hover:bg-emerald-500/20 hover:scale-105"
-                  >
-                    <MessageCircle className="size-3.5" />
-                    <span>WhatsApp Chat</span>
-                    <ArrowUpRight className="size-3" />
-                  </a>
-                </div>
-              </div>
             </div>
-          </motion.div>
+          </div>
 
-          {/* Right Column: Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            className="lg:col-span-7"
-          >
+          {/* Right Column */}
+          <div className="lg:col-span-7">
             <form
-              onSubmit={(e) => {
+              onSubmit={async (e) => {
                 e.preventDefault();
-                const fd = new FormData(e.currentTarget);
-                if (!fd.get("name") || !fd.get("email") || !fd.get("message")) {
+                const formEl = e.currentTarget;
+                const fd = new FormData(formEl);
+                const name = String(fd.get("name") || "").trim();
+                const email = String(fd.get("email") || "").trim();
+                const message = String(fd.get("message") || "").trim();
+                if (!name || !email || !message) {
                   toast.error("Please fill in your name, email and message.");
                   return;
                 }
-                setSent(true);
-                toast.success("Thank you! Your message has been sent.");
-                e.currentTarget.reset();
+                const subj = subject.trim() || `Portfolio Inquiry from ${name}`;
+                try {
+                  const res = await fetch(
+                    `https://formsubmit.co/ajax/${profile.email}`,
+                    {
+                      method: "POST",
+                      headers: {
+                        "Content-Type": "application/json",
+                        Accept: "application/json",
+                      },
+                      body: JSON.stringify({
+                        name,
+                        email,
+                        _subject: subj,
+                        message,
+                      }),
+                    }
+                  );
+                  if (res.ok) {
+                    setSent(true);
+                    formEl.reset();
+                    setSubject("");
+                    toast.success("Thank you! Your message has been sent directly.");
+                    setTimeout(() => setSent(false), 5000);
+                  } else {
+                    throw new Error("Fallback");
+                  }
+                } catch {
+                  const body = `${message}\n\n— ${name} (${email})`;
+                  window.location.href = `mailto:${profile.email}?subject=${encodeURIComponent(
+                    subj
+                  )}&body=${encodeURIComponent(body)}`;
+                  setSent(true);
+                  toast.success("Opening your email app with the message ready.");
+                }
               }}
-              className="rounded-[2.5rem] border border-border/70 bg-surface/40 p-6 sm:p-10 backdrop-blur-xl space-y-4"
+              className="rounded-3xl border border-blue-500/30 dark:border-blue-500/25 bg-white dark:bg-[#0c101a]/95 p-6 sm:p-8 backdrop-blur-xl shadow-[0_12px_35px_-12px_rgba(37,99,235,0.12)] dark:shadow-[0_20px_55px_rgba(0,0,0,0.6)] space-y-5"
             >
-              <h3 className="font-display text-2xl font-bold uppercase tracking-tight text-foreground mb-2">
-                Send a Message
+              <h3 className="font-display text-xl sm:text-2xl font-black uppercase tracking-wide text-neutral-900 dark:text-white">
+                Send a Direct Message
               </h3>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mb-1.5 block">
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold uppercase tracking-wider text-neutral-700 dark:text-white/75 block">
                     Your Name
                   </label>
-                  <Input name="name" required placeholder="John Doe" className="h-12 rounded-2xl border-border/70 bg-background/80" />
+                  <Input
+                    name="name"
+                    required
+                    placeholder="Enter your full name"
+                    className="h-12 rounded-xl border border-neutral-300 dark:border-white/15 bg-neutral-50 dark:bg-black/35 text-neutral-900 dark:text-white placeholder:text-neutral-400 dark:placeholder:text-white/40 focus:border-blue-600 dark:focus:border-blue-500 focus:bg-white dark:focus:bg-black/40 px-4 transition-all"
+                  />
                 </div>
-                <div>
-                  <label className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mb-1.5 block">
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold uppercase tracking-wider text-neutral-700 dark:text-white/75 block">
                     Email Address
                   </label>
-                  <Input name="email" type="email" required placeholder="john@company.com" className="h-12 rounded-2xl border-border/70 bg-background/80" />
+                  <Input
+                    name="email"
+                    type="email"
+                    required
+                    placeholder="you@company.com"
+                    className="h-12 rounded-xl border border-neutral-300 dark:border-white/15 bg-neutral-50 dark:bg-black/35 text-neutral-900 dark:text-white placeholder:text-neutral-400 dark:placeholder:text-white/40 focus:border-blue-600 dark:focus:border-blue-500 focus:bg-white dark:focus:bg-black/40 px-4 transition-all"
+                  />
                 </div>
               </div>
 
-              <div>
-                <label className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mb-1.5 block">
-                  Project Type / Requirements
+              <div className="space-y-2">
+                <label className="text-xs font-bold uppercase tracking-wider text-neutral-700 dark:text-white/75 block">
+                  Project Type
                 </label>
-                <Input name="subject" placeholder="Laravel Web App / E-Commerce Platform / API Integration" className="h-12 rounded-2xl border-border/70 bg-background/80" />
+                <Input
+                  name="subject"
+                  value={subject}
+                  onChange={(e) => setSubject(e.target.value)}
+                  placeholder=".NET & Angular App / Laravel Platform / E-Commerce"
+                  className="h-12 rounded-xl border border-neutral-300 dark:border-white/15 bg-neutral-50 dark:bg-black/35 text-neutral-900 dark:text-white placeholder:text-neutral-400 dark:placeholder:text-white/40 focus:border-blue-600 dark:focus:border-blue-500 focus:bg-white dark:focus:bg-black/40 px-4 transition-all"
+                />
+                <div className="flex flex-wrap gap-1.5 pt-1">
+                  {quickTags.map((tag) => (
+                    <button
+                      key={tag}
+                      type="button"
+                      onClick={() => setSubject(tag)}
+                      className={`rounded-full px-3 py-1 text-[11px] font-bold transition-all cursor-pointer ${
+                        subject === tag
+                          ? "bg-blue-600 text-white font-extrabold shadow-xs"
+                          : "border border-neutral-200 dark:border-white/12 bg-neutral-100 dark:bg-white/[0.04] text-neutral-700 dark:text-white/70 hover:border-blue-500 hover:text-blue-600 dark:hover:text-white"
+                      }`}
+                    >
+                      {tag}
+                    </button>
+                  ))}
+                </div>
               </div>
 
-              <div>
-                <label className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mb-1.5 block">
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold uppercase tracking-wider text-neutral-700 dark:text-white/75 block">
                   Message Details
                 </label>
-                <Textarea name="message" required rows={5} placeholder="Tell me about your project goals, scope, and timeline…" className="rounded-2xl border-border/70 bg-background/80 resize-none" />
+                <Textarea
+                  name="message"
+                  required
+                  rows={4}
+                  placeholder="Tell me about your project goals, timeline, and requirements…"
+                  className="rounded-xl border border-neutral-300 dark:border-white/15 bg-neutral-50 dark:bg-black/35 text-neutral-900 dark:text-white placeholder:text-neutral-400 dark:placeholder:text-white/40 focus:border-blue-600 dark:focus:border-blue-500 focus:bg-white dark:focus:bg-black/40 p-4 resize-none transition-all"
+                />
               </div>
 
               <button
                 type="submit"
-                className="w-full flex items-center justify-center gap-2 rounded-2xl bg-foreground py-4 text-xs sm:text-sm font-bold uppercase tracking-wider text-background transition-all duration-300 hover:opacity-90 active:scale-[0.99] mt-2 cursor-pointer"
+                className="w-full flex items-center justify-center gap-2.5 rounded-full py-4 text-xs sm:text-sm font-extrabold uppercase tracking-[0.12em] text-white transition-all duration-300 cursor-pointer select-none
+                  bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-600
+                  hover:from-blue-500 hover:via-indigo-500 hover:to-cyan-500
+                  border border-blue-400/40
+                  shadow-[0_4px_16px_rgba(37,99,235,0.4),0_10px_28px_rgba(79,70,229,0.3),inset_0_1px_1.5px_rgba(255,255,255,0.4)]
+                  hover:-translate-y-0.5 active:translate-y-0.5 active:scale-[0.99]"
               >
                 {sent ? (
                   <>
-                    <Check className="size-4 text-emerald-400" />
+                    <Check className="size-4 stroke-[2.5]" />
                     <span>Message Sent Successfully!</span>
                   </>
                 ) : (
                   <>
-                    <Send className="size-4" />
+                    <Send className="size-4 stroke-[2.3]" />
                     <span>Send Message</span>
                   </>
                 )}
               </button>
             </form>
-          </motion.div>
+          </div>
         </div>
-      </Frame>
+      </div>
     </div>
   );
 }

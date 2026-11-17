@@ -1,8 +1,8 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 import {
   ArrowUpRight,
+  ArrowRight,
   Mail,
   Phone,
   Copy,
@@ -11,33 +11,56 @@ import {
   MapPin,
   Github,
   Linkedin,
-  Sparkles,
-  Layers,
   Code2,
-  Database,
-  Server,
-  Zap,
-  CheckCircle2,
-  MessageCircle,
-  Terminal,
+  FolderOpen,
+  Download,
+  GraduationCap,
 } from "lucide-react";
 import { toast } from "sonner";
 
-import { SkillsBalloonChamber } from "@/components/site/SkillsBalloonChamber";
-import TextType from "@/components/ui/TextType";
-import { TestimonialsSection } from "@/components/site/TestimonialsSection";
-import { FaqSection } from "@/components/site/FaqSection";
+import { HeroPortrait } from "@/components/site/HeroPortrait";
+import {
+  WhatsAppIcon,
+  GitHubIcon,
+  LinkedInIcon,
+} from "@/components/site/BrandIcons";
+import { AboutSection } from "@/components/site/AboutSection";
+import { SkillsSection } from "@/components/site/SkillsSection";
 import { FeaturedProjectsSlider } from "@/components/site/FeaturedProjectsSlider";
-import { ParticleHero } from "@/components/site/ParticleHero";
-import { Magnet } from "@/components/site/Magnet";
+import { ServicesSection } from "@/components/site/ServicesSection";
+import { ProcessSection } from "@/components/site/ProcessSection";
+import { FaqSection } from "@/components/site/FaqSection";
+import { Reveal } from "@/components/site/ScrollReveal";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import ShapeGrid from "@/components/ui/ShapeGrid";
 
-import { heroStats, profile } from "@/data/portfolio";
-import avatarImg from "@/assets/avatar.png";
+import { profile } from "@/data/portfolio";
+import { scrollToTarget } from "@/lib/scroll";
 
-const title = `${profile.name} — ${profile.role} (PHP & Laravel)`;
-const description = `${profile.name} is a Full-Stack Web & E-Commerce Developer based in ${profile.location}. Specializing in Laravel, PHP, MySQL, REST APIs, and high-performance web applications.`;
+function useIsDark() {
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    const check = () => {
+      setIsDark(document.documentElement.classList.contains("dark"));
+    };
+    check();
+
+    const observer = new MutationObserver(check);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  return isDark;
+}
+
+const title = `${profile.name} — Full-Stack Developer (ASP.NET Core, Angular & Laravel)`;
+const description = `${profile.name} builds business web applications with C#, ASP.NET Core, Angular, PHP, Laravel, SQL Server, and MySQL in ${profile.location}.`;
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -46,321 +69,229 @@ export const Route = createFileRoute("/")({
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
+      { property: "og:image", content: "/favicon.svg" },
     ],
   }),
   component: Index,
 });
 
-// ─── CYCLING WORDS ───────────────────────────────────────────────────────────
-const cyclingWords = [
-  "Developer",
-  "Laravel Dev",
-  "Web Architect",
-  "Backend Dev",
-];
-
-function CyclingWord() {
-  const [index, setIndex] = useState(0);
-  const [animClass, setAnimClass] = useState("word-enter");
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setAnimClass("word-exit");
-      setTimeout(() => {
-        setIndex((i) => (i + 1) % cyclingWords.length);
-        setAnimClass("word-enter");
-      }, 350);
-    }, 2600);
-    return () => clearInterval(interval);
-  }, []);
-
-  return (
-    <span
-      className="relative inline-block overflow-hidden text-primary"
-      style={{ minWidth: "13ch" }}
-    >
-      <span key={index} className={animClass}>
-        {cyclingWords[index]}
-      </span>
-    </span>
-  );
-}
-
-// ─── HERO ────────────────────────────────────────────────────────────────────
+// ─── HERO (10/10 Focused Value Proposition + 2 Primary CTAs) ─────────────────
 function Hero() {
-  const [emailCopied, setEmailCopied] = useState(false);
+  const isDark = useIsDark();
 
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText(profile.email);
-    setEmailCopied(true);
-    toast.success("Email copied to clipboard!");
-    setTimeout(() => setEmailCopied(false), 2500);
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    e.preventDefault();
+    scrollToTarget(href);
   };
 
   return (
     <section
       id="home"
-      className="relative min-h-[92vh] lg:min-h-screen flex items-center justify-center overflow-hidden pt-28 sm:pt-32 pb-16 lg:py-0"
+      className="luxury-hero-section relative w-full min-h-screen flex flex-col justify-between overflow-hidden bg-white dark:bg-[#0b0d12] text-neutral-900 dark:text-white pt-24 sm:pt-28 md:pt-32 transition-colors duration-500"
     >
-      {/* Dynamic Ambient Glow Backdrops */}
-      <div className="hero-glow absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 size-[500px] lg:size-[700px] rounded-full bg-primary/20 blur-[140px] pointer-events-none" />
-      <div
-        className="hero-glow absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 size-[400px] lg:size-[600px] rounded-full bg-emerald-500/15 blur-[130px] pointer-events-none"
-        style={{ animationDelay: "2.5s" }}
-      />
+      {/* ── React Bits ShapeGrid Interactive Background (Hero Section Only) ── */}
+      <div className="absolute inset-0 z-0 pointer-events-auto overflow-hidden">
+        <ShapeGrid
+          shape="square"
+          direction="diagonal"
+          lineColor={isDark ? "#1e293b" : "#e2e8f0"}
+          hoverColor={isDark ? "#38bdf8" : "#2563eb"}
+          hoverFillColor={isDark ? "#38bdf8" : "#2563eb"}
+          fillOpacity={isDark ? 0.15 : 0.18}
+          cellSize={40}
+          speed={0.5}
+          tiltX={0}
+          tiltY={0}
+          rainbow={false}
+        />
+      </div>
 
-      {/* Grid Pattern subtle overlay for high-tech aesthetic */}
-      <div className="absolute inset-0 bg-[radial-gradient(rgba(8,185,212,0.15)_1px,transparent_1px)] [background-size:32px_32px] opacity-40 dark:opacity-20 pointer-events-none" />
+      {/* Subtle Topographic Wave Lines in Bottom-Left Corner */}
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 260 220"
+        fill="none"
+        className="pointer-events-none absolute bottom-0 left-0 w-52 sm:w-64 opacity-20 dark:opacity-30 z-[1]"
+      >
+        {[0, 12, 24, 36, 48, 60, 72, 84].map((offset) => (
+          <path
+            key={offset}
+            d={`M -20 ${120 + offset} C 40 ${110 + offset}, 75 ${165 + offset}, 145 ${185 + offset} C 195 ${198 + offset}, 220 ${225 + offset}, 250 ${240 + offset}`}
+            stroke={isDark ? "#3b82f6" : "#2563eb"}
+            strokeWidth="1"
+            strokeOpacity={0.55 - offset * 0.005}
+          />
+        ))}
+      </svg>
 
-      <div className="relative z-10 mx-auto w-full max-w-[1280px] px-5 sm:px-8 lg:px-12">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center min-h-[80vh] py-12 lg:py-0">
-
-          {/* ── Left Column: Clean, Uncluttered, High-Impact Content (7 cols) ── */}
-          <div className="lg:col-span-7 flex flex-col justify-center order-2 lg:order-1 text-left">
-            
-            {/* Status Eyebrow Badge */}
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 self-start rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-emerald-400 backdrop-blur-md mb-6 shadow-sm"
-            >
-              <span className="relative flex size-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex size-2 rounded-full bg-emerald-500" />
-              </span>
-              <span>Available for Projects</span>
-              <span className="text-emerald-500/50">•</span>
-              <span className="text-muted-foreground font-medium">{profile.location}</span>
-            </motion.div>
-
-            {/* Main Headline */}
-            <motion.div
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-            >
-              <p className="text-sm sm:text-base font-semibold uppercase tracking-widest text-muted-foreground mb-3 flex items-center gap-2">
-                <span className="h-px w-6 bg-primary" />
-                Hi, I'm <span className="text-foreground font-bold">{profile.name}</span>
-              </p>
-              <h1 className="font-display font-black uppercase tracking-tight text-foreground text-6xl sm:text-7xl lg:text-[84px] xl:text-[96px] leading-[0.88] mb-6">
-                Full Stack <br />
-                <TextType
-                  text={["Developer", "Laravel Pro", "Web Architect", "Backend Dev"]}
-                  typingSpeed={70}
-                  deletingSpeed={35}
-                  pauseDuration={1800}
-                  showCursor={true}
-                  cursorCharacter="|"
-                  cursorClassName="text-primary font-normal animate-pulse ml-1"
-                  className="text-primary inline-block"
-                />
-              </h1>
-            </motion.div>
-
-            {/* Concise Value Proposition */}
-            <motion.p
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="max-w-xl text-base sm:text-lg text-muted-foreground leading-relaxed mb-9 font-normal"
-            >
-              I architect high-performance <strong className="text-foreground font-semibold">Laravel & PHP</strong> backends, optimized <strong className="text-foreground font-semibold">MySQL</strong> databases, and modern <strong className="text-foreground font-semibold">React</strong> interfaces for scalable web products.
-            </motion.p>
-
-            {/* Two High-Converting, Highly Animated Magnetic Buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="flex flex-wrap items-center gap-4 mb-10"
-            >
-              {/* Primary Button with Animated Shimmer Light Sweep & Glow */}
-              <Magnet strength={5} padding={80}>
-                <Link
-                  to="/projects"
-                  className="relative group inline-flex items-center justify-center gap-3 rounded-full bg-foreground px-8 py-4 text-xs sm:text-sm font-bold uppercase tracking-wider text-background overflow-hidden transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)] dark:shadow-[0_10px_30px_-10px_rgba(8,185,212,0.4)]"
-                >
-                  {/* Shimmer Light Reflection Sweep on Hover */}
-                  <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 ease-in-out pointer-events-none" />
-                  
-                  <Layers className="size-4 text-primary transition-transform duration-300 group-hover:rotate-12" />
-                  <span>Explore Projects</span>
-                  <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-primary" />
-                </Link>
-              </Magnet>
-
-              {/* Secondary Button with Glassmorphic Border Glow */}
-              <Magnet strength={5} padding={80}>
-                <Link
-                  to="/contact"
-                  className="relative group inline-flex items-center justify-center gap-2.5 rounded-full border border-border/80 bg-surface/70 px-8 py-4 text-xs sm:text-sm font-bold uppercase tracking-wider text-foreground backdrop-blur-xl transition-all duration-300 hover:border-primary hover:bg-surface hover:scale-105 hover:shadow-[0_0_25px_rgba(8,185,212,0.3)] active:scale-95"
-                >
-                  <Sparkles className="size-4 text-primary transition-transform duration-300 group-hover:rotate-45 group-hover:scale-125" />
-                  <span>Let's Talk</span>
-                  <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-                </Link>
-              </Magnet>
-            </motion.div>
-
-            {/* Clean Social Proof & Quick Connect */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.7, delay: 0.4 }}
-              className="flex flex-wrap items-center justify-between gap-6 pt-7 border-t border-border/60 max-w-lg"
-            >
-              {/* Stats */}
-              <div className="flex items-center gap-6">
-                <div>
-                  <div className="font-display text-2xl sm:text-3xl font-black text-foreground tabular-nums leading-none">
-                    15<span className="text-primary">+</span>
-                  </div>
-                  <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mt-1">
-                    Projects Done
-                  </div>
-                </div>
-
-                <div className="h-7 w-px bg-border/60" />
-
-                <div>
-                  <div className="font-display text-2xl sm:text-3xl font-black text-foreground tabular-nums leading-none">
-                    100<span className="text-primary">%</span>
-                  </div>
-                  <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mt-1">
-                    Client Satisfaction
-                  </div>
-                </div>
-              </div>
-
-              {/* Social Quick Links */}
-              <div className="flex items-center gap-2">
-                <a
-                  href={profile.github}
-                  target="_blank"
-                  rel="noreferrer"
-                  title="GitHub Profile"
-                  className="flex size-9 items-center justify-center rounded-full border border-border/70 bg-surface/50 text-muted-foreground hover:text-foreground hover:border-primary hover:scale-110 transition-all duration-300"
-                >
-                  <Github className="size-4" />
-                </a>
-                <a
-                  href={profile.linkedin}
-                  target="_blank"
-                  rel="noreferrer"
-                  title="LinkedIn Profile"
-                  className="flex size-9 items-center justify-center rounded-full border border-border/70 bg-surface/50 text-muted-foreground hover:text-foreground hover:border-primary hover:scale-110 transition-all duration-300"
-                >
-                  <Linkedin className="size-4" />
-                </a>
-                <a
-                  href={profile.whatsapp}
-                  target="_blank"
-                  rel="noreferrer"
-                  title="WhatsApp Chat"
-                  className="flex size-9 items-center justify-center rounded-full border border-border/70 bg-surface/50 text-muted-foreground hover:text-emerald-400 hover:border-emerald-500 hover:scale-110 transition-all duration-300"
-                >
-                  <MessageCircle className="size-4" />
-                </a>
-              </div>
-            </motion.div>
+      {/* ── Main Hero Split Grid ── */}
+      <div className="relative z-20 mx-auto w-full max-w-[1320px] px-6 sm:px-10 lg:px-14 flex-1 grid grid-cols-1 lg:grid-cols-12 items-end gap-8 pt-4 lg:pt-0">
+        {/* Left Column: Typography, 1-Line Value Prop, 2 Primary CTAs & Factual Stats (7 cols) */}
+        <Reveal direction="left" duration={0.7} className="lg:col-span-7 flex flex-col justify-center self-center py-8 lg:py-12 space-y-6">
+          {/* Eyebrow */}
+          <div className="inline-flex items-center gap-3 self-start rounded-full border border-blue-500/25 dark:border-blue-500/25 bg-blue-500/[0.06] dark:bg-blue-500/[0.06] backdrop-blur-md px-4 py-1.5">
+            <span className="w-4 h-[1.5px] bg-blue-600 dark:bg-blue-400" />
+            <span className="text-[11px] sm:text-xs font-bold tracking-[0.22em] text-blue-600 dark:text-blue-400 uppercase">
+              FULL-STACK DEVELOPER • KARACHI
+            </span>
           </div>
 
-          {/* ── Right Column: Interactive Particle Canvas (5 cols) ── */}
-          <div className="lg:col-span-5 relative flex items-center justify-center order-1 lg:order-2">
-            <div className="relative w-full max-w-[480px] flex items-center justify-center">
-              
-              {/* Floating Badge 1: Role & Tech (Top-Right) */}
-              <motion.div
-                initial={{ opacity: 0, x: 20, y: -10 }}
-                animate={{ opacity: 1, x: 0, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.4 }}
-                className="absolute -top-3 right-1 sm:right-4 z-20 pointer-events-none"
-              >
-                <motion.div
-                  animate={{ y: [0, -6, 0] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                  className="flex items-center gap-3 rounded-2xl border border-border/80 bg-background/85 px-4 py-2.5 shadow-xl backdrop-blur-xl"
-                >
-                  <div className="flex size-9 items-center justify-center rounded-xl bg-primary/10 text-primary border border-primary/20 shadow-sm">
-                    <Terminal className="size-4" />
-                  </div>
-                  <div>
-                    <div className="text-[11px] font-bold uppercase tracking-wider text-foreground">
-                      Full-Stack Dev
-                    </div>
-                    <div className="text-[10px] font-medium text-muted-foreground">
-                      Laravel • PHP • React
-                    </div>
-                  </div>
-                </motion.div>
-              </motion.div>
+          {/* Display Title: I'M FAIZAN + Clear 1-Line Value Proposition */}
+          <div className="space-y-3">
+            <div className="relative inline-flex flex-wrap items-baseline gap-x-4">
+              <h1 className="font-display text-5xl sm:text-6xl md:text-7xl xl:text-[80px] font-black uppercase tracking-tight leading-none text-neutral-900 dark:text-white">
+                I’M{" "}
+                <span className="text-blue-600 dark:text-blue-400">
+                  FAIZAN
+                </span>
+              </h1>
+            </div>
 
-              {/* The Interactive Particle Canvas Component */}
-              <ParticleHero
-                src={avatarImg}
-                width={460}
-                height={580}
-                className="w-full"
-              />
+            {/* Sharp 1-Line Value Proposition */}
+            <p className="text-base sm:text-lg md:text-xl font-bold text-neutral-800 dark:text-white/95 leading-snug max-w-xl pt-1">
+              I build business web applications with{" "}
+              <span className="text-blue-600 dark:text-blue-400">
+                C# / ASP.NET Core, Angular
+              </span>{" "}
+              &amp;{" "}
+              <span className="text-blue-600 dark:text-blue-400">
+                PHP / Laravel
+              </span>
+              .
+            </p>
+          </div>
 
-              {/* Floating Badge 2: Stats & Quality (Bottom-Left) */}
-              <motion.div
-                initial={{ opacity: 0, x: -20, y: 15 }}
-                animate={{ opacity: 1, x: 0, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.6 }}
-                className="absolute bottom-12 -left-1 sm:-left-4 z-20 pointer-events-none"
-              >
-                <motion.div
-                  animate={{ y: [0, 6, 0] }}
-                  transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                  className="flex items-center gap-3 rounded-2xl border border-border/80 bg-background/85 px-4 py-3 shadow-2xl backdrop-blur-xl"
-                >
-                  <div className="flex size-10 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shadow-sm">
-                    <Sparkles className="size-5" />
-                  </div>
-                  <div>
-                    <div className="font-display text-lg font-black text-foreground tabular-nums leading-none">
-                      15<span className="text-primary">+</span> Projects
-                    </div>
-                    <div className="text-[10px] font-semibold text-muted-foreground mt-0.5 flex items-center gap-1">
-                      <CheckCircle2 className="size-3 text-emerald-500" />
-                      100% Satisfaction
-                    </div>
-                  </div>
-                </motion.div>
-              </motion.div>
+          {/* Concise, Authentic 2-Sentence Bio */}
+          <p className="max-w-xl text-xs sm:text-sm md:text-[15px] leading-[1.75] text-neutral-600 dark:text-white/65">
+            From RESTful APIs and normalized{" "}
+            <strong className="text-neutral-900 dark:text-white font-semibold">
+              SQL Server &amp; MySQL
+            </strong>{" "}
+            databases to responsive{" "}
+            <strong className="text-neutral-900 dark:text-white font-semibold">
+              Angular &amp; React
+            </strong>{" "}
+            frontends, I turn complex workflows into clean, working software.
+          </p>
 
-              {/* Floating Badge 3: Active Status (Bottom-Center) */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.8 }}
-                className="absolute -bottom-3 left-1/2 -translate-x-1/2 z-20 pointer-events-none"
-              >
-                <div className="flex items-center gap-2 rounded-full border border-emerald-500/30 bg-background/90 px-3.5 py-1.5 text-[11px] font-bold text-emerald-400 backdrop-blur-md shadow-lg">
-                  <span className="relative flex size-2">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                    <span className="relative inline-flex size-2 rounded-full bg-emerald-500" />
-                  </span>
-                  <span>Available for Work</span>
+          {/* Two Primary CTAs: View Projects & Download CV */}
+          <div className="flex flex-wrap items-center gap-4 pt-1">
+            {/* Primary Blue CTA: View Projects */}
+            <a
+              href="#projects"
+              onClick={(e) => handleNavClick(e, "#projects")}
+              className="group inline-flex items-center justify-center gap-3 rounded-full px-7 py-3.5 text-xs font-extrabold uppercase tracking-[0.1em] text-white transition-all duration-300 cursor-pointer select-none
+                bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-600
+                hover:from-blue-500 hover:via-indigo-500 hover:to-cyan-500
+                border border-blue-400/40
+                shadow-[0_4px_16px_rgba(37,99,235,0.4),0_10px_28px_rgba(79,70,229,0.3),inset_0_1px_1.5px_rgba(255,255,255,0.4)]
+                hover:shadow-[0_8px_24px_rgba(37,99,235,0.5),0_16px_36px_rgba(79,70,229,0.4),inset_0_1px_2px_rgba(255,255,255,0.5)]
+                hover:-translate-y-0.5 active:translate-y-0.5 active:scale-[0.98]"
+            >
+              <FolderOpen className="size-4 stroke-[2.4]" />
+              <span>VIEW PROJECTS</span>
+              <ArrowRight className="size-4 stroke-[2.4] transition-transform duration-200 group-hover:translate-x-1" />
+            </a>
+
+            {/* Secondary Glass CTA: Download CV */}
+            <a
+              href="/Muhammad-Faizan-CV.pdf"
+              download="Muhammad-Faizan-CV.pdf"
+              onClick={() =>
+                toast.success("Downloading Muhammad Faizan's CV...")
+              }
+              className="group inline-flex items-center justify-center gap-2.5 rounded-full px-7 py-3.5 text-xs font-extrabold uppercase tracking-[0.1em] transition-all duration-300 cursor-pointer select-none
+                bg-white/85 hover:bg-white text-neutral-900 border border-slate-300/80 hover:border-blue-500
+                shadow-[0_4px_16px_rgba(0,0,0,0.06),inset_0_1px_1.5px_rgba(255,255,255,1),inset_0_-1px_2px_rgba(0,0,0,0.04)]
+                hover:shadow-[0_8px_26px_rgba(37,99,235,0.25),inset_0_1px_1.5px_rgba(255,255,255,1)]
+                dark:bg-[#0e1422]/80 dark:hover:bg-[#131c30]/90 dark:text-white dark:border-white/15 dark:hover:border-blue-400
+                dark:shadow-[0_4px_20px_rgba(0,0,0,0.45),inset_0_1px_1px_rgba(255,255,255,0.18)]
+                dark:hover:shadow-[0_8px_30px_rgba(37,99,235,0.3),inset_0_1px_1px_rgba(255,255,255,0.3)]
+                hover:-translate-y-0.5 active:translate-y-0.5 active:scale-[0.98]"
+            >
+              <Download className="size-3.5 text-blue-600 dark:text-blue-400 stroke-[2.4] transition-transform duration-200 group-hover:-translate-y-0.5" />
+              <span>DOWNLOAD CV</span>
+            </a>
+          </div>
+
+          {/* Bottom Glassmorphic 3-Column Factual Bar */}
+          <div className="inline-flex flex-wrap items-center gap-5 sm:gap-7 rounded-2xl border border-neutral-200/90 dark:border-white/10 bg-white/80 dark:bg-white/[0.03] backdrop-blur-xl px-5 py-4 shadow-[0_12px_36px_rgba(0,0,0,0.06)] dark:shadow-[0_12px_36px_rgba(0,0,0,0.4)] self-start mt-2">
+            {/* Stat 1 */}
+            <div className="group flex items-center gap-3 cursor-default">
+              <span className="flex size-10 items-center justify-center rounded-xl border border-blue-500/30 dark:border-blue-500/30 bg-blue-500/10 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 group-hover:bg-blue-600 group-hover:text-white transition-all duration-200">
+                <FolderOpen className="size-5 stroke-[2]" />
+              </span>
+              <div>
+                <div className="text-sm sm:text-base font-bold text-neutral-900 dark:text-white leading-tight">
+                  7 Projects (3 Live)
                 </div>
-              </motion.div>
+                <div className="text-[11px] text-neutral-500 dark:text-white/60">
+                  CookSmart, FanHub &amp; Meraki
+                </div>
+              </div>
+            </div>
 
+            <div className="h-8 w-px bg-neutral-200 dark:bg-white/10 hidden sm:block" />
+
+            {/* Stat 2 */}
+            <div className="group flex items-center gap-3 cursor-default">
+              <span className="flex size-10 items-center justify-center rounded-xl border border-blue-500/30 dark:border-blue-500/30 bg-blue-500/10 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 group-hover:bg-blue-600 group-hover:text-white transition-all duration-200">
+                <GraduationCap className="size-5 stroke-[2]" />
+              </span>
+              <div>
+                <div className="text-sm sm:text-base font-bold text-neutral-900 dark:text-white leading-tight">
+                  Aptech HDSE
+                </div>
+                <div className="text-[11px] text-neutral-500 dark:text-white/60">
+                  3rd Semester • 1st Place Winner
+                </div>
+              </div>
+            </div>
+
+            <div className="h-8 w-px bg-neutral-200 dark:bg-white/10 hidden sm:block" />
+
+            {/* Stat 3 */}
+            <div className="group flex items-center gap-3 cursor-default">
+              <span className="flex size-10 items-center justify-center rounded-xl border border-blue-500/30 dark:border-blue-500/30 bg-blue-500/10 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 group-hover:bg-blue-600 group-hover:text-white transition-all duration-200">
+                <Code2 className="size-5 stroke-[2]" />
+              </span>
+              <div>
+                <div className="text-sm sm:text-base font-bold text-neutral-900 dark:text-white leading-tight">
+                  .NET • Angular • Laravel
+                </div>
+                <div className="text-[11px] text-neutral-500 dark:text-white/60">
+                  SQL Server &amp; MySQL
+                </div>
+              </div>
             </div>
           </div>
+        </Reveal>
 
-        </div>
+        {/* Right Column: Portrait (5 cols) */}
+        <Reveal direction="right" delay={0.12} duration={0.75} className="lg:col-span-5 relative flex items-end justify-center self-end">
+          <HeroPortrait />
+        </Reveal>
       </div>
     </section>
   );
 }
 
-// ─── CONTACT SECTION ─────────────────────────────────────────────────────────
+// ─── CONTACT SECTION (Direct AJAX Email Submission + Instant Fallback) ───────
 function ContactSection() {
   const [copied, setCopied] = useState(false);
+  const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
+  const [subject, setSubject] = useState("");
+
+  const quickSubjects = [
+    "C# / ASP.NET Core & Angular App",
+    "PHP & Laravel Web Portal",
+    "E-Commerce / Shopify Store",
+    "Full-Time / Internship Role",
+  ];
 
   const copyEmail = () => {
     navigator.clipboard.writeText(profile.email);
@@ -370,47 +301,97 @@ function ContactSection() {
   };
 
   return (
-    <section id="contact" className="pt-8 sm:pt-10 pb-12 sm:pb-16 border-t border-border/40">
-      <div className="mx-auto max-w-[1240px] px-5 sm:px-10 lg:px-16">
+    <section
+      id="contact"
+      className="relative py-20 sm:py-28 border-t border-neutral-200/80 dark:border-white/[0.06] bg-[#f8fafc] dark:bg-[#080c14] text-neutral-900 dark:text-white overflow-hidden select-none transition-colors duration-300"
+    >
+      {/* Ambient Blue & Indigo Spotlights */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 overflow-hidden"
+      >
+        <div
+          className="absolute right-[8%] top-[10%] h-[420px] w-[420px] rounded-full opacity-20 blur-[140px]"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(37,99,235,0.42) 0%, transparent 70%)",
+          }}
+        />
+        <div
+          className="absolute left-[6%] bottom-[8%] h-[440px] w-[440px] rounded-full opacity-18 blur-[150px]"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(79,70,229,0.35) 0%, transparent 70%)",
+          }}
+        />
+      </div>
+
+      <div className="relative z-10 mx-auto max-w-[1340px] px-5 sm:px-8 lg:px-12">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6 sm:mb-8">
-          <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-surface/50 px-3.5 py-1 text-xs font-semibold uppercase tracking-widest text-primary mb-3">
-              <span className="size-1.5 rounded-full bg-primary animate-ping" />
-              Get In Touch
+        <Reveal direction="up" className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12">
+          <div className="space-y-3">
+            <div className="inline-flex items-center gap-2 rounded-full border border-blue-500/40 bg-blue-500/10 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400">
+              <Mail className="size-3.5 text-blue-600 dark:text-blue-400" />
+              <span>GET IN TOUCH</span>
             </div>
-            <h2 className="font-display text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-foreground">
-              Let's Build Together
+
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-neutral-900 dark:text-white leading-[1.08]">
+              LET&apos;S BUILD{" "}
+              <span className="text-blue-600 dark:text-blue-400">
+                TOGETHER
+              </span>
             </h2>
           </div>
-          <p className="max-w-md text-sm sm:text-base text-muted-foreground leading-relaxed">
-            Have a Laravel project, custom web application, or e-commerce requirement? Send a message or reach out directly.
+
+          <p className="max-w-md text-xs sm:text-sm text-neutral-600 dark:text-white/65 leading-relaxed">
+            Have an{" "}
+            <strong className="text-neutral-900 dark:text-white font-semibold">
+              ASP.NET Core &amp; Angular
+            </strong>{" "}
+            project, custom{" "}
+            <strong className="text-neutral-900 dark:text-white font-semibold">Laravel</strong>{" "}
+            portal, or developer role in mind? Send a message directly below.
           </p>
-        </div>
+        </Reveal>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-          {/* Left: Contact Info */}
-          <div className="lg:col-span-5 space-y-4">
-            <div className="rounded-[2.5rem] border border-border/70 bg-surface/40 p-6 sm:p-8 backdrop-blur-xl space-y-5">
-              <h3 className="font-display text-2xl font-bold uppercase tracking-tight text-foreground">
-                Contact Details
-              </h3>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          {/* Left: Direct Contact & Social Profiles */}
+          <Reveal direction="left" delay={0.08} className="lg:col-span-5">
+            <div className="rounded-3xl border border-neutral-200/90 dark:border-white/10 bg-white dark:bg-[#0c101a]/95 p-6 sm:p-8 backdrop-blur-xl shadow-[0_12px_35px_-12px_rgba(15,23,42,0.08)] dark:shadow-[0_20px_55px_rgba(0,0,0,0.6)] space-y-5">
+              <div>
+                <h3 className="font-display text-xl sm:text-2xl font-black uppercase tracking-wide text-neutral-900 dark:text-white">
+                  Direct Contact Channels
+                </h3>
+                <p className="text-xs text-neutral-600 dark:text-white/60 mt-1">
+                  Available for full-time roles, internships, and freelance web projects.
+                </p>
+              </div>
 
-              {/* Email */}
+              {/* Email (Click to Copy) */}
               <button
+                type="button"
                 onClick={copyEmail}
-                className="w-full flex items-center justify-between gap-3 rounded-2xl border border-border/80 bg-background/80 p-4 transition-all duration-300 hover:border-primary/60 group cursor-pointer"
+                className="w-full flex items-center justify-between gap-3 rounded-2xl border border-neutral-200 dark:border-white/10 bg-neutral-50/80 dark:bg-white/[0.03] hover:border-blue-500/60 hover:bg-blue-500/[0.06] p-4 transition-all group cursor-pointer"
               >
-                <div className="flex items-center gap-3 truncate">
-                  <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                    <Mail className="size-4" />
+                <div className="flex items-center gap-3.5 min-w-0">
+                  <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-blue-500/15 text-blue-600 dark:text-blue-400 border border-blue-500/35">
+                    <Mail className="size-5" />
                   </span>
-                  <span className="text-xs sm:text-sm font-semibold text-foreground truncate font-mono">
-                    {profile.email}
-                  </span>
+                  <div className="text-left min-w-0">
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 block">
+                      Official Email (Click to Copy)
+                    </span>
+                    <span className="text-xs sm:text-sm font-semibold text-neutral-900 dark:text-white truncate block">
+                      {profile.email}
+                    </span>
+                  </div>
                 </div>
-                <span className="flex size-8 shrink-0 items-center justify-center rounded-full border border-border bg-surface text-muted-foreground group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary transition-all">
-                  {copied ? <Check className="size-3.5 text-emerald-400" /> : <Copy className="size-3.5" />}
+                <span className="flex size-9 shrink-0 items-center justify-center rounded-xl border border-neutral-300 dark:border-white/15 bg-white dark:bg-black/30 text-neutral-700 dark:text-white/75 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-500 transition-all">
+                  {copied ? (
+                    <Check className="size-4 text-emerald-500 dark:text-emerald-400 group-hover:text-white" />
+                  ) : (
+                    <Copy className="size-4" />
+                  )}
                 </span>
               </button>
 
@@ -418,101 +399,256 @@ function ContactSection() {
               <a
                 href={profile.whatsapp}
                 target="_blank"
-                rel="noreferrer"
-                className="flex items-center justify-between gap-3 rounded-2xl border border-border/60 bg-background/50 p-4 transition-all hover:border-emerald-500/60 text-foreground group"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between gap-3 rounded-2xl border border-neutral-200 dark:border-white/10 bg-neutral-50/80 dark:bg-white/[0.03] hover:border-emerald-500/60 hover:bg-emerald-500/[0.06] p-4 transition-all text-neutral-900 dark:text-white group"
               >
-                <div className="flex items-center gap-3">
-                  <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-400">
-                    <Phone className="size-4" />
+                <div className="flex items-center gap-3.5">
+                  <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-emerald-500/15 text-[#25D366] dark:text-emerald-400 border border-emerald-500/30">
+                    <WhatsAppIcon className="size-5" />
                   </span>
                   <div>
-                    <span className="text-xs sm:text-sm font-semibold font-mono block">{profile.phone}</span>
-                    <span className="text-[10px] text-emerald-400 font-medium">WhatsApp / Call</span>
+                    <span className="text-[11px] text-emerald-600 dark:text-emerald-400 font-bold uppercase tracking-wider block">
+                      WhatsApp / Direct Chat
+                    </span>
+                    <span className="text-sm sm:text-base font-extrabold text-neutral-900 dark:text-white block">
+                      {profile.formattedPhone}
+                    </span>
                   </div>
                 </div>
-                <ArrowUpRight className="size-4 text-muted-foreground group-hover:text-emerald-400 transition-colors" />
+                <ArrowUpRight className="size-4 text-neutral-500 dark:text-white/60 group-hover:text-emerald-500 transition-colors" />
               </a>
 
               {/* Location */}
-              <div className="flex items-center gap-3 rounded-2xl border border-border/60 bg-background/50 p-4 text-foreground">
-                <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                  <MapPin className="size-4" />
+              <div className="flex items-center gap-3.5 rounded-2xl border border-neutral-200 dark:border-white/10 bg-neutral-50/80 dark:bg-white/[0.03] p-4 text-neutral-900 dark:text-white">
+                <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-blue-500/15 text-blue-600 dark:text-blue-400 border border-blue-500/35">
+                  <MapPin className="size-5" />
                 </span>
-                <span className="text-sm font-semibold">{profile.location}</span>
+                <div>
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-500 dark:text-white/50 block">
+                    Base Location
+                  </span>
+                  <span className="text-sm sm:text-base font-bold text-neutral-900 dark:text-white">
+                    {profile.location} (Remote &amp; On-Site Ready)
+                  </span>
+                </div>
               </div>
 
               {/* Socials */}
-              <div className="pt-3 border-t border-border/40">
-                <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mb-3">
-                  Profiles & Repositories
+              <div className="pt-4 border-t border-neutral-200/80 dark:border-white/10 space-y-3">
+                <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-neutral-500 dark:text-white/50">
+                  Official Profiles &amp; Resume
                 </p>
-                <div className="flex flex-wrap gap-2">
-                  <a href={profile.github} target="_blank" rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 rounded-full border border-border/70 bg-background/80 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground transition-all duration-200 hover:border-primary hover:text-primary hover:scale-105">
-                    <Github className="size-3.5" /><span>GitHub</span><ArrowUpRight className="size-3" />
+                <div className="flex flex-wrap gap-2.5">
+                  <a
+                    href={profile.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-xl border border-blue-500/40 bg-blue-500/10 hover:bg-[#0A66C2] hover:text-white px-4 py-2.5 text-xs font-extrabold uppercase tracking-wider text-blue-600 dark:text-blue-400 transition-all"
+                  >
+                    <LinkedInIcon className="size-4" />
+                    <span>LinkedIn</span>
+                    <ArrowUpRight className="size-3.5" />
                   </a>
-                  <a href={profile.linkedin} target="_blank" rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 rounded-full border border-border/70 bg-background/80 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground transition-all duration-200 hover:border-primary hover:text-primary hover:scale-105">
-                    <Linkedin className="size-3.5" /><span>LinkedIn</span><ArrowUpRight className="size-3" />
+
+                  <a
+                    href={profile.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-xl border border-neutral-300 dark:border-white/15 bg-white dark:bg-white/[0.04] hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-neutral-800 dark:text-white transition-all"
+                  >
+                    <GitHubIcon className="size-4" />
+                    <span>GitHub</span>
+                    <ArrowUpRight className="size-3.5" />
+                  </a>
+
+                  <a
+                    href={profile.whatsapp}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-xl border border-emerald-500/40 bg-emerald-500/10 hover:bg-[#25D366] hover:text-white px-4 py-2.5 text-xs font-extrabold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 transition-all"
+                  >
+                    <WhatsAppIcon className="size-4" />
+                    <span>WhatsApp</span>
+                    <ArrowUpRight className="size-3.5" />
+                  </a>
+
+                  <a
+                    href="/Muhammad-Faizan-CV.pdf"
+                    download="Muhammad-Faizan-CV.pdf"
+                    onClick={() =>
+                      toast.success("Downloading Muhammad Faizan's CV...")
+                    }
+                    className="inline-flex items-center gap-2 rounded-xl border border-neutral-300 dark:border-white/15 bg-white dark:bg-white/[0.04] hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-neutral-800 dark:text-white transition-all"
+                  >
+                    <Download className="size-4 text-blue-600 dark:text-blue-400" />
+                    <span>CV PDF</span>
                   </a>
                 </div>
               </div>
             </div>
-          </div>
+          </Reveal>
 
-          {/* Right: Form */}
-          <div className="lg:col-span-7">
+          {/* Right: Direct AJAX Contact Form (FormSubmit AJAX + Instant Delivery) */}
+          <Reveal direction="right" delay={0.14} className="lg:col-span-7">
             <form
-              onSubmit={(e) => {
+              onSubmit={async (e) => {
                 e.preventDefault();
-                const fd = new FormData(e.currentTarget);
-                if (!fd.get("name") || !fd.get("email") || !fd.get("message")) {
-                  toast.error("Please fill in your name, email and message.");
+                const formEl = e.currentTarget;
+                const fd = new FormData(formEl);
+                const name = String(fd.get("name") || "").trim();
+                const email = String(fd.get("email") || "").trim();
+                const message = String(fd.get("message") || "").trim();
+                if (!name || !email || !message) {
+                  toast.error("Please fill in your name, email, and message.");
                   return;
                 }
-                setSent(true);
-                toast.success("Thank you! Your message has been sent.");
-                e.currentTarget.reset();
+                const subj = subject.trim() || `Portfolio Inquiry from ${name}`;
+                setSending(true);
+                try {
+                  const res = await fetch(
+                    `https://formsubmit.co/ajax/${profile.email}`,
+                    {
+                      method: "POST",
+                      headers: {
+                        "Content-Type": "application/json",
+                        Accept: "application/json",
+                      },
+                      body: JSON.stringify({
+                        name,
+                        email,
+                        _subject: subj,
+                        message,
+                      }),
+                    }
+                  );
+                  if (res.ok) {
+                    setSent(true);
+                    formEl.reset();
+                    setSubject("");
+                    toast.success("Message sent directly to Muhammad Faizan!");
+                    setTimeout(() => setSent(false), 5000);
+                  } else {
+                    throw new Error("Fallback to mailto");
+                  }
+                } catch {
+                  const body = `${message}\n\n— ${name} (${email})`;
+                  window.location.href = `mailto:${profile.email}?subject=${encodeURIComponent(
+                    subj
+                  )}&body=${encodeURIComponent(body)}`;
+                  setSent(true);
+                  toast.success("Opening your email client with the message ready.");
+                  setTimeout(() => setSent(false), 4000);
+                } finally {
+                  setSending(false);
+                }
               }}
-              className="rounded-[2.5rem] border border-border/70 bg-surface/40 p-6 sm:p-10 backdrop-blur-xl space-y-4"
+              className="rounded-3xl border border-blue-500/30 dark:border-blue-500/25 bg-white dark:bg-[#0c101a]/95 p-6 sm:p-8 backdrop-blur-xl shadow-[0_12px_35px_-12px_rgba(37,99,235,0.12)] dark:shadow-[0_20px_55px_rgba(0,0,0,0.6)] space-y-5"
             >
-              <h3 className="font-display text-2xl font-bold uppercase tracking-tight text-foreground mb-2">
-                Send a Direct Message
-              </h3>
+              <div className="flex items-center justify-between gap-2">
+                <h3 className="font-display text-xl sm:text-2xl font-black uppercase tracking-wide text-neutral-900 dark:text-white">
+                  Send a Direct Message
+                </h3>
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/40 bg-emerald-500/10 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-300">
+                  <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  <span>Direct Inbox Delivery</span>
+                </span>
+              </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mb-1.5 block">Your Name</label>
-                  <Input name="name" required placeholder="John Doe" className="h-12 rounded-2xl border-border/70 bg-background/80" />
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold uppercase tracking-wider text-neutral-700 dark:text-white/75 block">
+                    Your Name
+                  </label>
+                  <Input
+                    name="name"
+                    required
+                    placeholder="Enter your full name"
+                    className="h-12 rounded-xl border border-neutral-300 dark:border-white/15 bg-neutral-50 dark:bg-black/35 text-neutral-900 dark:text-white placeholder:text-neutral-400 dark:placeholder:text-white/40 focus:border-blue-600 dark:focus:border-blue-500 focus:bg-white dark:focus:bg-black/40 px-4 transition-all"
+                  />
                 </div>
-                <div>
-                  <label className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mb-1.5 block">Email Address</label>
-                  <Input name="email" type="email" required placeholder="john@company.com" className="h-12 rounded-2xl border-border/70 bg-background/80" />
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold uppercase tracking-wider text-neutral-700 dark:text-white/75 block">
+                    Email Address
+                  </label>
+                  <Input
+                    name="email"
+                    type="email"
+                    required
+                    placeholder="you@company.com"
+                    className="h-12 rounded-xl border border-neutral-300 dark:border-white/15 bg-neutral-50 dark:bg-black/35 text-neutral-900 dark:text-white placeholder:text-neutral-400 dark:placeholder:text-white/40 focus:border-blue-600 dark:focus:border-blue-500 focus:bg-white dark:focus:bg-black/40 px-4 transition-all"
+                  />
                 </div>
               </div>
 
-              <div>
-                <label className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mb-1.5 block">Project Type / Service</label>
-                <Input name="subject" placeholder="Laravel Web App / E-Commerce / API Integration" className="h-12 rounded-2xl border-border/70 bg-background/80" />
+              <div className="space-y-2">
+                <label className="text-xs font-bold uppercase tracking-wider text-neutral-700 dark:text-white/75 block">
+                  Project Type / Subject
+                </label>
+                <Input
+                  name="subject"
+                  value={subject}
+                  onChange={(e) => setSubject(e.target.value)}
+                  placeholder=".NET & Angular App / Laravel Portal / Job Opportunity"
+                  className="h-12 rounded-xl border border-neutral-300 dark:border-white/15 bg-neutral-50 dark:bg-black/35 text-neutral-900 dark:text-white placeholder:text-neutral-400 dark:placeholder:text-white/40 focus:border-blue-600 dark:focus:border-blue-500 focus:bg-white dark:focus:bg-black/40 px-4 transition-all"
+                />
+                <div className="flex flex-wrap gap-1.5 pt-1">
+                  {quickSubjects.map((item) => (
+                    <button
+                      key={item}
+                      type="button"
+                      onClick={() => setSubject(item)}
+                      className={`rounded-full px-3 py-1 text-[11px] font-bold transition-all cursor-pointer ${
+                        subject === item
+                          ? "bg-blue-600 text-white shadow-xs font-extrabold"
+                          : "border border-neutral-200 dark:border-white/12 bg-neutral-100 dark:bg-white/[0.04] text-neutral-700 dark:text-white/70 hover:border-blue-500 hover:text-blue-600 dark:hover:text-white"
+                      }`}
+                    >
+                      {item}
+                    </button>
+                  ))}
+                </div>
               </div>
 
-              <div>
-                <label className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mb-1.5 block">Message & Scope</label>
-                <Textarea name="message" required rows={4} placeholder="Describe your project, timeline, and goals…" className="rounded-2xl border-border/70 bg-background/80 resize-none" />
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold uppercase tracking-wider text-neutral-700 dark:text-white/75 block">
+                  Project or Role Details
+                </label>
+                <Textarea
+                  name="message"
+                  required
+                  rows={4}
+                  placeholder="Tell me about your project requirements, tech stack, or role opportunity…"
+                  className="rounded-xl border border-neutral-300 dark:border-white/15 bg-neutral-50 dark:bg-black/35 text-neutral-900 dark:text-white placeholder:text-neutral-400 dark:placeholder:text-white/40 focus:border-blue-600 dark:focus:border-blue-500 focus:bg-white dark:focus:bg-black/40 p-4 resize-none transition-all"
+                />
               </div>
 
               <button
                 type="submit"
-                className="w-full flex items-center justify-center gap-2 rounded-2xl bg-foreground py-4 text-xs sm:text-sm font-bold uppercase tracking-wider text-background transition-all duration-300 hover:opacity-90 active:scale-[0.99] mt-2 cursor-pointer"
+                disabled={sending}
+                className="w-full flex items-center justify-center gap-2.5 rounded-full py-4 text-xs sm:text-sm font-extrabold uppercase tracking-[0.12em] text-white transition-all duration-300 cursor-pointer select-none disabled:opacity-60
+                  bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-600
+                  hover:from-blue-500 hover:via-indigo-500 hover:to-cyan-500
+                  border border-blue-400/40
+                  shadow-[0_4px_16px_rgba(37,99,235,0.4),0_10px_28px_rgba(79,70,229,0.3),inset_0_1px_1.5px_rgba(255,255,255,0.4)]
+                  hover:shadow-[0_8px_24px_rgba(37,99,235,0.5),0_16px_36px_rgba(79,70,229,0.4),inset_0_1px_2px_rgba(255,255,255,0.5)]
+                  hover:-translate-y-0.5 active:translate-y-0.5 active:scale-[0.99]"
               >
                 {sent ? (
-                  <><Check className="size-4 text-emerald-400" /><span>Message Sent!</span></>
+                  <>
+                    <Check className="size-4 stroke-[2.5]" />
+                    <span>Message Sent Successfully!</span>
+                  </>
+                ) : sending ? (
+                  <span>Sending Message…</span>
                 ) : (
-                  <><Send className="size-4" /><span>Send Message</span></>
+                  <>
+                    <Send className="size-4 stroke-[2.3]" />
+                    <span>Send Direct Message</span>
+                  </>
                 )}
               </button>
             </form>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>
@@ -523,22 +659,13 @@ function ContactSection() {
 function Index() {
   return (
     <>
-      {/* 1. Hero — split layout, 100vh */}
       <Hero />
-
-      {/* 2. Featured Projects — tabbed showcase */}
+      <AboutSection />
+      <SkillsSection />
       <FeaturedProjectsSlider />
-
-      {/* 3. Interactive 3D Skills Balloon Pit with Spawning Hole */}
-      <SkillsBalloonChamber />
-
-      {/* 4. Testimonials */}
-      <TestimonialsSection />
-
-      {/* 9. FAQ */}
+      <ServicesSection />
+      <ProcessSection />
       <FaqSection />
-
-      {/* 10. Contact */}
       <ContactSection />
     </>
   );

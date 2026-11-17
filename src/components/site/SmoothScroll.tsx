@@ -1,26 +1,34 @@
 import { useEffect } from "react";
 
-/** Framer-style inertial smooth scrolling (respects reduced-motion). */
+/** Inertial smooth scrolling (Lenis). Skipped for reduced-motion users. */
 export function SmoothScroll() {
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     let raf = 0;
     let disposed = false;
-    let lenis: { raf: (t: number) => void; destroy: () => void } | null = null;
+    let instance: {
+      raf: (t: number) => void;
+      destroy: () => void;
+      scrollTo: NonNullable<Window["__lenis"]>["scrollTo"];
+    } | null = null;
 
     void (async () => {
       const { default: Lenis } = await import("lenis");
       if (disposed) return;
-      const instance = new Lenis({
-        duration: 1.1,
-        lerp: 0.1,
+      const lenis = new Lenis({
+        lerp: 0.085,
+        duration: 1.25,
+        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         smoothWheel: true,
-        wheelMultiplier: 1,
+        wheelMultiplier: 0.95,
+        touchMultiplier: 1.25,
+        infinite: false,
       });
-      lenis = instance as unknown as { raf: (t: number) => void; destroy: () => void };
+      instance = lenis as unknown as NonNullable<typeof instance>;
+      window.__lenis = instance;
       const loop = (time: number) => {
-        instance.raf(time);
+        lenis.raf(time);
         raf = requestAnimationFrame(loop);
       };
       raf = requestAnimationFrame(loop);
@@ -29,7 +37,8 @@ export function SmoothScroll() {
     return () => {
       disposed = true;
       cancelAnimationFrame(raf);
-      lenis?.destroy();
+      window.__lenis = null;
+      instance?.destroy();
     };
   }, []);
 

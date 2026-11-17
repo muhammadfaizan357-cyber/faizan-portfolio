@@ -21,6 +21,15 @@ dist-ssr
 .dev.vars
 .vercel/
 
+# Build & local archives
+portfolio.zip
+portfolio-walkthrough.mp4
+public/portfolio-walkthrough.mp4
+src/assets/btn_*.png
+src/assets/left_col_ref_*.png
+src/assets/about_card_*.png
+src/assets/*_btn_area.png
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
