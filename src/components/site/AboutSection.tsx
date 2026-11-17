@@ -28,7 +28,7 @@ const featurePills = [
 
 const aboutStats = [
   {
-    value: "8",
+    value: "7",
     label: "Full-Stack Projects (4 Live)",
     icon: FolderOpen,
   },

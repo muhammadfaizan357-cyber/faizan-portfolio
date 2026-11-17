@@ -1,6 +1,5 @@
 import fanhubImg from "@/assets/project-fanhub.png";
 import cooksmartImg from "@/assets/project-cooksmart.png";
-import habitateImg from "@/assets/project-habitate.jpg";
 import merakiImg from "@/assets/project-meraki.jpg";
 import hamdanImg from "@/assets/project-hamdan.jpg";
 
@@ -284,56 +283,6 @@ export const projects: Project[] = [
     featured: true,
     liveUrl: "https://hamdan-flavors-unfold.vercel.app/",
     githubUrl: "https://github.com/muhammadfaizan01-DEV",
-  },
-  {
-    slug: "orbexa-solar",
-    title: "Orbexa Solar",
-    category: "Laravel & MySQL Operations Portal",
-    filterGroup: "Laravel & PHP",
-    year: "2025",
-    role: "Full-Stack Laravel Developer",
-    client: "Academic & Portfolio Capstone",
-    services: ["Laravel", "PHP 8", "MySQL", "RESTful APIs", "Blade / Tailwind", "RBAC Auth"],
-    image: habitateImg,
-    summary:
-      "Solar energy site management and monitoring dashboard built with PHP 8, Laravel MVC, and MySQL for tracking installations, inverter logs, and maintenance tickets.",
-    overview:
-      "Orbexa Solar is a full-stack Laravel web application designed to help solar installation teams track customer sites, log inverter readings, schedule maintenance tickets, and export summary reports.",
-    problem:
-      "Small solar installation teams often track site installations and maintenance calls in spreadsheets, making it hard to see which inverters need servicing or generate client reports.",
-    whatIBuilt: [
-      "Laravel MVC application with role-based middleware separating Admin, Technician, and Client views",
-      "Normalized MySQL schema for sites, inverter readings, service tickets, and customer accounts",
-      "Eloquent ORM relationships with eager loading (`with()`) to prevent N+1 query bottlenecks on dashboard tables",
-      "Filterable maintenance ticket workflow and printable site summary reports",
-    ],
-    challenges: [
-      {
-        challenge: "Avoiding slow dashboard loads when listing sites alongside their latest reading and ticket status.",
-        solution:
-          "Used Laravel Eloquent `latestOfMany()` relations and composite MySQL indexes on `(site_id, recorded_at)`.",
-      },
-      {
-        challenge: "Ensuring technicians only update tickets assigned to their region.",
-        solution:
-          "Implemented Laravel Policies and form request validation classes for strict authorization.",
-      },
-    ],
-    screenshots: [
-      { src: habitateImg, caption: "Orbexa Solar — Site monitoring & maintenance management interface" },
-    ],
-    highlights: [
-      "Role-based portals for Admins, Field Technicians, and Clients",
-      "Normalized MySQL database with Eloquent ORM and indexed lookup queries",
-      "Maintenance ticket tracking and exportable site summary reports",
-    ],
-    metrics: [
-      { label: "Framework", value: "Laravel MVC" },
-      { label: "Database", value: "MySQL" },
-      { label: "Auth", value: "RBAC Policies" },
-    ],
-    featured: true,
-    githubUrl: "https://github.com/muhammadfaizan01-DEV/Orbexa-Solar-Operations",
   },
   {
     slug: "nexacore-enterprise-erp",
