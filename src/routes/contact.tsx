@@ -218,7 +218,10 @@ function ContactPage() {
                       body: JSON.stringify({
                         name,
                         email,
+                        _replyto: email,
                         _subject: subj,
+                        _template: "table",
+                        _captcha: "false",
                         message,
                       }),
                     }
