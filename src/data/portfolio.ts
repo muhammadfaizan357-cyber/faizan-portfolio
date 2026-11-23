@@ -45,9 +45,9 @@ export const profile = {
   avatar: "",
   portrait: "",
   intro:
-    "Full-Stack Web Developer from Karachi, Pakistan, building business web apps and REST APIs with C#, ASP.NET Core, Angular, PHP, Laravel, SQL Server, and MySQL.",
+    "Full-stack web developer based in Karachi, Pakistan. I build web apps and REST APIs using C#, ASP.NET Core, Angular, PHP, Laravel, SQL Server, and MySQL.",
   bio:
-    "Full-Stack Developer currently in the 3rd semester of Aptech HDSE in Karachi. I focus on clean MVC/REST architecture, relational database design, and responsive Angular & Laravel web applications.",
+    "I am in the 3rd semester of my HDSE diploma at Aptech in Karachi. Most of my work focuses on clean MVC and REST structure, relational SQL databases, and responsive frontends in Angular, React, and Laravel.",
   email: "muhammadfaizan01234567@gmail.com",
   phone: "0302 2679431",
   formattedPhone: "+92 302 2679431",
@@ -69,36 +69,41 @@ export const projects: Project[] = [
     services: ["ASP.NET Core", "C#", "Angular", "SQL Server", "RESTful APIs"],
     image: cooksmartImg,
     summary:
-      "Full-stack recipe discovery and weekly meal planning web app built with an ASP.NET Core REST API backend, SQL Server, and an Angular SPA.",
+      "I built this recipe and weekly meal planner app using an ASP.NET Core Web API, SQL Server, and an Angular frontend.",
     overview:
-      "CookSmart is a deployed full-stack recipe and meal-planning application. Users browse categorized recipes, filter by ingredients or prep time, get recipe suggestions, and organize their week with an interactive meal planner and saved favourites.",
+      "CookSmart lets home cooks browse recipes by category, search by ingredient or prep time, save their favourites, and plan out meals for the week in one place.",
     problem:
-      "Home cooks often juggle scattered recipe bookmarks and notes without a structured way to plan weekly meals or filter recipes by what they already have in the kitchen.",
+      "Most people keep recipes scattered across screenshots and bookmarks, which makes it hard to figure out what to cook with what is already in the kitchen.",
     whatIBuilt: [
-      "ASP.NET Core Web API controllers for recipes, categories, cooking tips, and user authentication",
-      "Normalized SQL Server relational schema for recipes, ingredient lists, categories, and user favourites",
-      "Angular single-page frontend with reactive category filtering, search, and route guards",
-      "Client-persisted weekly meal planner (Monday–Sunday slots) synced with user favourites",
+      "ASP.NET Core API controllers for recipes, categories, cooking tips, and user login",
+      "Normalized SQL Server tables for recipes, ingredients, categories, and saved favourites",
+      "Angular frontend with category filters, search, and protected user routes",
+      "Monday-to-Sunday weekly meal planner that saves planned dishes alongside favourites",
     ],
     challenges: [
       {
-        challenge: "Keeping recipe category filtering and search instant without redundant API calls.",
+        challenge:
+          "Switching categories and typing in search was firing too many API calls.",
         solution:
-          "Structured the ASP.NET Core endpoints with clean query parameters and cached category lookups in an Angular service using RxJS state streams.",
+          "I added query filtering on the ASP.NET Core endpoints and cached category lists inside an Angular service using RxJS.",
       },
       {
-        challenge: "Making the weekly meal planner work smoothly across page reloads.",
+        challenge:
+          "Planned meals disappeared whenever a user refreshed the page.",
         solution:
-          "Combined structured local storage state with authenticated user profile sync so planned meals persist reliably.",
+          "I synced the planner state between local storage and the user's saved account records.",
       },
     ],
     screenshots: [
-      { src: cooksmartImg, caption: "CookSmart — Recipe discovery, categories & weekly meal planner UI" },
+      {
+        src: cooksmartImg,
+        caption: "CookSmart recipe list, category filters, and weekly meal planner",
+      },
     ],
     highlights: [
-      "Category-based recipe browsing, search, and saved user favourites",
-      "Interactive weekly meal planner with cooking tips and prep times",
-      "ASP.NET Core RESTful API consumed by a modular Angular SPA",
+      "Category filters, ingredient search, and saved user favourites",
+      "Weekly meal planner with prep times and cooking tips",
+      "ASP.NET Core REST API connected to a modular Angular frontend",
     ],
     metrics: [
       { label: "Backend", value: "ASP.NET Core" },
@@ -107,7 +112,7 @@ export const projects: Project[] = [
     ],
     featured: true,
     liveUrl: "http://cook-smart.runasp.net/",
-    githubUrl: "https://github.com/muhammadfaizan01-DEV/CookSmart",
+    githubUrl: "https://github.com/muhammadfaizan01-DEV/Cook-Smart",
   },
   {
     slug: "fan-hub-plus",
@@ -117,39 +122,51 @@ export const projects: Project[] = [
     year: "2025",
     role: "Full-Stack .NET & Angular Developer",
     client: "Live Deployed Web Application",
-    services: ["ASP.NET Core", "C#", "Angular", "Three.js", "SQL Server", "RESTful APIs"],
+    services: [
+      "ASP.NET Core",
+      "C#",
+      "Angular",
+      "Three.js",
+      "SQL Server",
+      "RESTful APIs",
+    ],
     image: fanhubImg,
     summary:
-      "Interactive fandom hub for anime, games, and movies powered by an ASP.NET Core backend, Angular SPA frontend, and Three.js 3D visuals.",
+      "I built a multi-fandom web app for anime, games, and movies with an ASP.NET Core backend, Angular frontend, and Three.js visuals.",
     overview:
-      "FanHub Plus brings together fandom realms, character encyclopedias, media galleries, community articles, events, and merchandise in a single web platform. Built with C# / ASP.NET Core on the server and Angular + Three.js on the client.",
+      "FanHub Plus puts fandom realms, character profiles, media galleries, articles, events, and merchandise inside one site. It runs on a C# / ASP.NET Core API with SQL Server and an Angular + Three.js frontend.",
     problem:
-      "Fan communities usually split their time between separate wikis, event boards, and merch stores with dated, static layouts that lack interactive visual appeal.",
+      "Fans usually have to jump between wikis, event pages, and merch stores across different sites just to follow one series.",
     whatIBuilt: [
-      "ASP.NET Core REST API serving structured endpoints for Realms, Characters, Media, Articles, Events, and Merchandise",
-      "SQL Server database tables linking characters and articles to their respective fandom realms",
-      "Angular SPA with dedicated views, authentication (login/sign-up), and modular component routing",
-      "Three.js 3D canvas integration inside Angular lifecycle hooks with proper disposal on route change",
+      "ASP.NET Core REST endpoints for Realms, Characters, Media, Articles, Events, and Merchandise",
+      "SQL Server tables linking characters, media items, and articles to each fandom realm",
+      "Angular views with login/sign-up forms and reusable card filters",
+      "Three.js 3D scene hooked into Angular lifecycle methods so it cleans up when changing routes",
     ],
     challenges: [
       {
-        challenge: "Preventing Three.js WebGL memory leaks when navigating between Angular routes.",
+        challenge:
+          "Navigating away from the 3D scene left WebGL contexts running and slowed down the browser.",
         solution:
-          "Implemented Angular ngOnDestroy cleanup to cancel animation frames and dispose geometries, materials, and renderers when leaving 3D views.",
+          "I added cleanup inside Angular ngOnDestroy to stop animation frames and dispose geometries, materials, and renderers.",
       },
       {
-        challenge: "Organizing six distinct content modules (Realms, Media, Characters, Articles, Events, Merch) cleanly.",
+        challenge:
+          "Six separate sections (Realms, Media, Characters, Articles, Events, Merch) started duplicating component logic.",
         solution:
-          "Designed consistent DTOs in ASP.NET Core and reusable card/filter components in Angular.",
+          "I matched consistent DTO shapes in ASP.NET Core with shared Angular card and filter components.",
       },
     ],
     screenshots: [
-      { src: fanhubImg, caption: "FanHub Plus — Interactive 3D hero and multi-realm fandom explorer" },
+      {
+        src: fanhubImg,
+        caption: "FanHub Plus home hero with Three.js visuals and fandom realm navigation",
+      },
     ],
     highlights: [
-      "Six integrated modules: Realms, Media, Characters, Articles, Events & Merch",
-      "ASP.NET Core backend API with SQL Server persistence and user auth",
-      "Three.js 3D interactive visuals embedded cleanly inside Angular components",
+      "Six connected sections: Realms, Media, Characters, Articles, Events, and Merch",
+      "ASP.NET Core backend with SQL Server storage and user accounts",
+      "Three.js 3D canvas managed cleanly inside Angular component hooks",
     ],
     metrics: [
       { label: "Backend", value: "ASP.NET Core" },
@@ -158,12 +175,12 @@ export const projects: Project[] = [
     ],
     featured: true,
     liveUrl: "https://fan-hub-plus.runasp.net/",
-    githubUrl: "https://github.com/muhammadfaizan01-DEV/FanHub-Plus",
+    githubUrl: "https://github.com/muhammadfaizan01-DEV",
   },
   {
     slug: "meraki-curated-essentials",
     title: "Meraki — Curated Essentials",
-    category: "Luxury E-Commerce & Lifestyle Storefront",
+    category: "Online Fashion & Home Storefront",
     filterGroup: "E-Commerce & CMS",
     year: "2026",
     role: "Full-Stack E-Commerce Developer",
@@ -173,46 +190,45 @@ export const projects: Project[] = [
       "Tailwind CSS",
       "E-Commerce Storefront",
       "Cart & Checkout Flow",
-      "Responsive Editorial UI",
+      "Responsive Store UI",
     ],
     image: merakiImg,
     summary:
-      "Editorial luxury fashion, accessories, and home essentials e-commerce storefront featuring curated collections, dynamic product filtering, and an interactive shopping bag.",
+      "I built an online store for clothing, accessories, and home items with category filters, product search, and a slide-out shopping bag.",
     overview:
-      "Meraki (Curated Essentials — Autumn Edit 2026) is a live deployed modern e-commerce web application crafted with an editorial aesthetic. Shoppers can browse Fashion, Accessories, and Home collections, search products instantaneously, inspect detailed product views, and manage their shopping bag with a seamless responsive interface.",
+      "Meraki (Autumn Edit 2026) is a live clothing and lifestyle storefront. Shoppers can browse Fashion, Accessories, and Home collections, filter products, open product details, and adjust items in a slide-over cart drawer.",
     problem:
-      "Many online fashion and lifestyle stores feel cluttered and slow on mobile, losing the refined editorial presentation needed for premium apparel and home goods.",
+      "Many small online clothing shops look crowded on phones and force users through full page reloads just to check a category or update their bag.",
     whatIBuilt: [
-      "Editorial hero showcase and promotional announcement bar with smooth collection navigation (Shop All, Fashion, Accessories, Home)",
-      "Category-filtered product catalog with instant search and responsive grid layouts across desktop, tablet, and mobile",
-      "Interactive slide-over shopping bag with real-time quantity updates, subtotal calculation, and checkout flow",
-      "Pixel-perfect typography and warm neutral design system optimized for fast Core Web Vitals",
+      "Storefront landing page and announcement bar with links to Shop All, Fashion, Accessories, and Home",
+      "Category filtering, search bar, and responsive product cards tested across mobile and desktop screens",
+      "Slide-out shopping bag drawer with quantity controls, live subtotals, and checkout steps",
+      "Warm neutral colour scheme and typography tuned for clean product photos",
     ],
     challenges: [
       {
         challenge:
-          "Preserving high-resolution editorial imagery without slowing down initial page load on mobile devices.",
+          "Large product and hero photos were making mobile scrolling feel heavy on slower connections.",
         solution:
-          "Used optimized image sizing, lazy-loaded collection grids below the fold, and fluid CSS aspect-ratio containers to prevent layout shift.",
+          "I sized images cleanly, lazy-loaded lower product grids, and kept fixed aspect ratios on cards to stop layout jumping.",
       },
       {
         challenge:
-          "Keeping category switching (Fashion, Accessories, Home) and cart drawer interactions instant.",
+          "Keeping category switches and cart quantity updates quick without reloading the page.",
         solution:
-          "Structured client state cleanly so filtering, product quick-views, and cart mutations update with zero page reloads.",
+          "I kept product filters and cart state in client memory so changes update the bag and list right away.",
       },
     ],
     screenshots: [
       {
         src: merakiImg,
-        caption:
-          "Meraki — Autumn Edit 2026 luxury editorial hero & navigation experience",
+        caption: "Meraki storefront hero and collection navigation (Autumn Edit 2026)",
       },
     ],
     highlights: [
-      "Curated Fashion, Accessories & Home collections with instant filtering",
-      "Interactive shopping bag drawer and seamless product discovery",
-      "Live deployed responsive editorial storefront",
+      "Fashion, Accessories, and Home collections with quick category filters",
+      "Slide-over shopping bag with live quantity and subtotal updates",
+      "Responsive layout tested on mobile, tablet, and desktop",
     ],
     metrics: [
       { label: "Category", value: "E-Commerce" },
@@ -226,7 +242,7 @@ export const projects: Project[] = [
   {
     slug: "hamdan-fastfood",
     title: "Hamdan Fastfood",
-    category: "Restaurant Ordering & Catering Web App",
+    category: "Restaurant Menu & WhatsApp Ordering Site",
     filterGroup: "E-Commerce & CMS",
     year: "2026",
     role: "Full-Stack Web Developer",
@@ -240,41 +256,41 @@ export const projects: Project[] = [
     ],
     image: hamdanImg,
     summary:
-      "Modern desi & fast-food restaurant web application featuring an interactive menu showcase, event catering inquiry flow, and direct WhatsApp ordering.",
+      "I built a fast-loading menu and catering website for a local restaurant where customers can browse dishes and send orders straight to WhatsApp.",
     overview:
-      "Hamdan Fastfood is a live deployed restaurant storefront built for fast mobile browsing and frictionless ordering. Customers explore freshly prepared Pakistani biryani, crispy broast, sizzling BBQ, and catering packages, then place orders or catering inquiries directly via WhatsApp in one tap.",
+      "Hamdan Fastfood is a live website built for mobile ordering. Visitors check Pakistani biryani, broast, BBQ, and event catering options, then tap once to message the restaurant on WhatsApp with their order ready.",
     problem:
-      "Local restaurants often rely on slow PDF menus or third-party delivery apps with high commissions, making it hard for customers to browse dishes and order directly.",
+      "Local food spots often send customers heavy PDF menus or lose money to delivery app fees because people have no simple web page to view prices and order directly.",
     whatIBuilt: [
-      "Full-bleed editorial restaurant hero with instant jump-to-menu and direct WhatsApp ordering CTAs",
-      "Categorized menu browsing (Biryani, Broast, BBQ & Everyday Favourites) optimized for mobile and desktop viewports",
-      "Dedicated Event Catering section for weddings, birthdays, and family gatherings with pre-filled WhatsApp inquiry links",
-      "Fast SSR delivery with preloaded hero imagery and responsive sticky header navigation",
+      "Restaurant landing section with direct buttons to jump to the menu or message on WhatsApp",
+      "Dish sections for Biryani, Broast, BBQ, and everyday meals laid out cleanly for phones",
+      "Catering section for weddings and family events with pre-filled WhatsApp inquiry links",
+      "Server-rendered pages with preloaded hero photography and a sticky top bar",
     ],
     challenges: [
       {
         challenge:
-          "Making ordering effortless for local customers without forcing them through a lengthy account registration.",
+          "Letting local customers place an order quickly without making them sign up or fill long checkout forms.",
         solution:
-          "Integrated structured `wa.me` deep links with pre-filled order messages directly from the header, hero, and catering CTAs.",
+          "I wired header, hero, and catering buttons to wa.me links with pre-written order text so WhatsApp opens ready to send.",
       },
       {
         challenge:
-          "Keeping high-resolution food photography crisp without hurting First Contentful Paint on mobile.",
+          "Keeping the large food banner sharp without slowing down initial phone loads.",
         solution:
-          "Used `fetchPriority='high'` preloading on the hero photograph alongside lightweight CSS overlays and clean typographic hierarchy.",
+          "I added fetchPriority='high' preloading on the hero photo and kept overlays in lightweight CSS.",
       },
     ],
     screenshots: [
       {
         src: hamdanImg,
-        caption: "Hamdan Fastfood — Desi & Fast Food showcase with direct WhatsApp ordering",
+        caption: "Hamdan Fastfood storefront hero with menu jump and WhatsApp ordering",
       },
     ],
     highlights: [
-      "Interactive restaurant menu & catering showcase live on Vercel",
-      "One-tap WhatsApp direct ordering & catering inquiry flow",
-      "Mobile-first responsive layout with fast SSR loading",
+      "Live menu and event catering site hosted on Vercel",
+      "One-tap WhatsApp links for direct orders and catering inquiries",
+      "Mobile-first layout with fast server-rendered loading",
     ],
     metrics: [
       { label: "Category", value: "Food & Orders" },
@@ -302,41 +318,41 @@ export const projects: Project[] = [
     ],
     image: hamdanPosImg,
     summary:
-      "Offline-ready counter POS and kitchen order portal built for a local fast-food shop to handle walk-in, takeaway, delivery, and WhatsApp bills in one place.",
+      "I built an offline-ready counter POS and kitchen order app for a local fast-food shop to handle walk-in, takeaway, delivery, and WhatsApp bills in one screen.",
     overview:
-      "I built this desktop POS system for Hamdan Fast Food so their counter staff can punch bills quickly without relying on slow cloud tools or monthly POS subscriptions. It runs locally on an Express server with instant disk persistence and supports multiple open bills, combo deals, kitchen tracking, and daily sales summaries.",
+      "This desktop POS runs directly on the shop's counter PC using a local Node/Express backend and a React frontend. Staff can manage multiple open bills, apply combo deals, track orders in the kitchen queue, and check daily sales without paying monthly SaaS fees.",
     problem:
-      "During busy dinner hours, taking walk-in, phone, and WhatsApp orders on paper slips led to missed items, slow billing, and no clear record of daily sales or combo discounts.",
+      "During busy evening hours, writing walk-in, phone, and WhatsApp orders on paper slips led to missed items, slow billing, and no proper daily sales count.",
     whatIBuilt: [
-      "Multi-tab POS billing screen supporting parallel active bills, held bills, takeaway, dine-in, and delivery channels",
-      "Quick keyboard search ('/' shortcut), category tabs, and one-click combo deal bundles with automatic savings calculation",
-      "Live kitchen orders queue, catalog & deals manager, and daily sales dashboard",
-      "Local Express backend persisting every order, draft, and catalog update directly to disk so nothing is lost on refresh",
+      "Multi-tab POS screen supporting parallel open bills, held bills, takeaway, dine-in, and delivery channels",
+      "Fast item search ('/' keyboard shortcut), category tabs, and combo deal bundles with automatic discount math",
+      "Live kitchen orders list, menu & deals manager, and daily sales summary view",
+      "Express API saving orders, held drafts, and catalog changes straight to JSON files on disk",
     ],
     challenges: [
       {
         challenge:
-          "Keeping the counter responsive when staff switch between three or four open customer bills at once.",
+          "Keeping billing quick when counter staff jump back and forth between three or four active customer tabs.",
         solution:
-          "Stored active and held bill tabs in synced state with debounced Express API saves so switching bills stays instant.",
+          "I kept active and held bills in synced state with debounced Express API writes so tab switching never lags.",
       },
       {
         challenge:
-          "Making sure the shop owner could run the POS every day without opening a terminal or installing heavy database software.",
+          "Letting the shop owner open the POS every morning without running terminal commands or setting up a heavy database server.",
         solution:
-          "Packaged the Express + React build with a one-click launcher and local JSON storage that starts automatically on their counter PC.",
+          "I bundled the app with a one-click launcher script and local file storage that initializes automatically on startup.",
       },
     ],
     screenshots: [
       {
         src: hamdanPosImg,
-        caption: "Hamdan Fast Food POS — Multi-bill counter terminal with combo deals and order channels",
+        caption: "Hamdan Fast Food POS counter terminal with active bill tabs and combo deals",
       },
     ],
     highlights: [
-      "Multi-bill tabs for Walk-in, WhatsApp, Phone & Web orders",
-      "Combo deals, held bills, kitchen queue & daily sales dashboard",
-      "Runs locally on the shop PC with zero monthly fees",
+      "Parallel bill tabs for Walk-in, WhatsApp, Phone, and Web orders",
+      "Combo deals, held bills, kitchen queue, and daily sales dashboard",
+      "Runs locally on the shop PC with zero monthly subscription costs",
     ],
     metrics: [
       { label: "Type", value: "Desktop POS" },
@@ -344,101 +360,57 @@ export const projects: Project[] = [
       { label: "Client", value: "Hamdan Food" },
     ],
     featured: true,
-    githubUrl: "https://github.com/muhammadfaizan01-DEV",
-  },
-  {
-    slug: "nexacore-enterprise-erp",
-    title: "NexaCore Operations Portal",
-    category: "ASP.NET Core & Angular Web App",
-    filterGroup: ".NET & Angular",
-    year: "2025",
-    role: "Full-Stack .NET & Angular Developer",
-    client: "Enterprise Architecture Project",
-    services: ["C#", "ASP.NET Core", "Angular", "SQL Server", "Entity Framework", "JWT Auth"],
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&auto=format&fit=crop&q=80",
-    summary:
-      "Role-based business workflow and inventory tracking portal built with C# ASP.NET Core Web API, Entity Framework Core, SQL Server, and Angular.",
-    overview:
-      "NexaCore is a modular business operations portal combining employee task workflows, department inventory tracking, and approval logs. Built with an ASP.NET Core Web API backend and an Angular SPA frontend.",
-    problem:
-      "Growing teams need a unified internal portal where staff can submit inventory or purchase requests and managers can approve them with an audit trail.",
-    whatIBuilt: [
-      "C# ASP.NET Core Web API structured with Controllers, Services, and EF Core Repositories",
-      "JWT Bearer authentication and role claims (`Admin`, `Manager`, `Staff`) enforced on both API and Angular routes",
-      "SQL Server schema managed via Entity Framework Core code-first migrations",
-      "Angular dashboard with reactive forms, status filters, and approval history logs",
-    ],
-    challenges: [
-      {
-        challenge: "Handling expired JWT tokens gracefully without kicking the user out mid-form.",
-        solution:
-          "Built an Angular `HttpInterceptor` that attaches the Bearer token and cleanly redirects to login with return-URL state when a 401 occurs.",
-      },
-      {
-        challenge: "Keeping controller actions thin and testable.",
-        solution:
-          "Separated business rules into injectable C# service classes using ASP.NET Core Dependency Injection.",
-      },
-    ],
-    highlights: [
-      "C# ASP.NET Core Web API with Dependency Injection and EF Core migrations",
-      "JWT authentication and Angular `CanActivate` route guards",
-      "Department inventory requests, manager approvals, and audit logs",
-    ],
-    metrics: [
-      { label: "Backend", value: ".NET Web API" },
-      { label: "ORM", value: "EF Core + SQL" },
-      { label: "Security", value: "JWT + Guards" },
-    ],
-    featured: true,
-    githubUrl: "https://github.com/muhammadfaizan01-DEV/NexaCore-Operations-Portal",
+    githubUrl: "https://github.com/muhammadfaizan01-DEV/Hamdan_POS",
   },
   {
     slug: "the-elite-attorney",
     title: "The Elite Attorney",
-    category: "Legal Case & Appointment Portal",
+    category: "Legal Consultation & Booking Portal",
     filterGroup: "Laravel & PHP",
     year: "2025",
-    role: "Full-Stack PHP & Laravel Developer",
+    role: "Full-Stack PHP & MySQL Developer",
     client: "Aptech Vision Showcase Project",
-    services: ["PHP / Laravel", "MySQL", "RBAC Auth", "Appointment Booking", "Bootstrap / Tailwind"],
-    image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1200&auto=format&fit=crop&q=80",
+    services: ["PHP", "MySQL", "HTML/CSS", "JavaScript", "Sessions & Roles"],
+    image:
+      "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1200&auto=format&fit=crop&q=80",
     summary:
-      "Law firm appointment booking and case milestone portal built with PHP/Laravel and MySQL, connecting clients with legal associates.",
+      "I built a law firm consultation booking and directory website in Core PHP and MySQL with separate dashboards for customers, lawyers, and admins.",
     overview:
-      "Developed as a full-stack legal practice portal where clients can search lawyers by specialization, request consultation slots, and track case hearing dates, while lawyers manage their schedules and case notes.",
+      "Developed for the Aptech Vision showcase, The Elite Attorney lets visitors search lawyers by specialization, book consultation slots, and send inquiries, while lawyers manage their appointments and admins oversee lawyers, customers, services, and messages.",
     problem:
-      "Manual phone-based legal consultation booking leads to scheduling conflicts and leaves clients without visibility into upcoming case milestones.",
+      "Booking legal consultations over phone calls made it easy to double-book lawyers and gave clients no way to check open slots or track their booking status.",
     whatIBuilt: [
-      "Multi-role authentication for Clients, Lawyers, and Firm Administrators",
-      "Lawyer directory filterable by practice area (Corporate, Family, Civil, Criminal) and city",
-      "Consultation booking system with time-slot conflict checks in MySQL",
-      "Case milestone timeline where lawyers post hearing updates for their clients",
+      "Session-based login and registration with separate role checks for Admins, Lawyers, and Customers (`includes/config.php`)",
+      "MySQL (`mysqli`) database storing users, lawyer profiles, practice services, appointment bookings, and contact messages",
+      "Dedicated `admin/`, `lawyer/`, and customer `pages/` panels to approve bookings and update lawyer details",
+      "Lawyer profile directory with photo uploads and practice-area filtering",
     ],
     challenges: [
       {
-        challenge: "Preventing double-booking of the same lawyer for overlapping consultation slots.",
+        challenge:
+          "Keeping admins, lawyers, and customers strictly separated across different folders without breaking shared navigation.",
         solution:
-          "Added server-side availability validation in Laravel before confirming a booking record and constrained `(lawyer_id, slot_datetime)` in MySQL.",
+          "I added `isAdmin()`, `isLawyer()`, and `isCustomer()` session helper guards in `includes/config.php` and reused shared header/footer includes.",
       },
       {
-        challenge: "Designing separate dashboards for lawyers and clients without duplicating layout code.",
+        challenge:
+          "Handling user-submitted forms safely in plain PHP without framework ORM helpers.",
         solution:
-          "Created shared Blade/Tailwind layout components with role-aware navigation partials.",
+          "I created a centralized `clean($conn, $data)` sanitization helper and escaped query inputs before saving appointments and messages to MySQL.",
       },
     ],
     highlights: [
-      "Separate portals for Legal Clients, Associates, and Admins",
-      "Conflict-checked consultation booking and hearing timeline logs",
-      "Filterable lawyer directory by legal specialization",
+      "Separate portals for Customers, Lawyers, and Firm Admins in Core PHP",
+      "MySQL-backed lawyer directory, consultation booking, and admin message inbox",
+      "1st Place project showcase at Aptech Internal Vision Competition",
     ],
     metrics: [
-      { label: "Stack", value: "PHP & Laravel" },
-      { label: "Database", value: "MySQL" },
+      { label: "Stack", value: "PHP & MySQL" },
+      { label: "Auth", value: "3 User Roles" },
       { label: "Feature", value: "Slot Booking" },
     ],
     featured: true,
-    githubUrl: "https://github.com/muhammadfaizan01-DEV/The-Elite-Attorney-Portal",
+    githubUrl: "https://github.com/muhammadfaizan01-DEV/The_Elite_Attorney",
   },
   {
     slug: "quick-snack",
@@ -448,31 +420,39 @@ export const projects: Project[] = [
     year: "2024",
     role: "Full-Stack Web Developer",
     client: "E-Commerce Project",
-    services: ["Laravel / PHP", "JavaScript ES6+", "MySQL", "AJAX Cart", "Order Tracking"],
-    image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=1200&auto=format&fit=crop&q=80",
+    services: [
+      "Laravel / PHP",
+      "JavaScript ES6+",
+      "MySQL",
+      "AJAX Cart",
+      "Order Tracking",
+    ],
+    image:
+      "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=1200&auto=format&fit=crop&q=80",
     summary:
-      "Online food ordering and cart management web application built with PHP/Laravel, JavaScript, and MySQL with live order status updates.",
+      "I built an online snack ordering storefront with PHP/Laravel, JavaScript, and MySQL featuring a no-reload cart and admin order queue.",
     overview:
-      "Quick Snack Commerce is a responsive food-ordering storefront where customers browse categorized menus, customize quantities in an asynchronous cart, apply promo codes, and place orders that flow directly into an admin kitchen queue.",
+      "Quick Snack Commerce lets customers browse categorized snacks, adjust cart quantities without refreshing the page, apply discount coupons, and submit orders to an admin kitchen screen.",
     problem:
-      "Full page reloads on every 'Add to Cart' action hurt mobile usability on food ordering sites.",
+      "Reloading the whole page every time a user adds an item to their cart makes mobile food ordering slow and frustrating.",
     whatIBuilt: [
-      "Asynchronous JavaScript Fetch/AJAX cart endpoints in Laravel so item quantities update without page reloads",
-      "MySQL relational tables for `categories`, `menu_items`, `orders`, `order_items`, and `coupons`",
-      "Checkout workflow with address validation and order summary calculation",
-      "Admin order queue to update order status (`Pending` → `Preparing` → `Out for Delivery` → `Completed`)",
+      "JavaScript Fetch/AJAX cart requests connected to Laravel endpoints so cart counts update without page reloads",
+      "MySQL tables for `categories`, `menu_items`, `orders`, `order_items`, and `coupons`",
+      "Three-step checkout flow with address validation and order total calculation",
+      "Admin order screen to move tickets through `Pending`, `Preparing`, `Out for Delivery`, and `Completed`",
     ],
     challenges: [
       {
-        challenge: "Keeping cart totals accurate when users rapidly increment/decrement quantities or apply discount codes.",
+        challenge:
+          "Keeping cart subtotals accurate when users tap +/- quickly or apply promo codes.",
         solution:
-          "Recalculated subtotals and coupon discounts server-side in Laravel on every cart mutation and returned the canonical JSON state to the UI.",
+          "I recalculated item totals and coupon discounts on the PHP server during every cart call and returned the updated JSON back to the browser.",
       },
     ],
     highlights: [
-      "No-reload AJAX shopping cart and server-validated promo codes",
-      "Admin kitchen queue for managing live order statuses",
-      "Mobile-first menu filtering and 3-step checkout flow",
+      "No-reload Fetch/AJAX shopping cart and server-checked promo codes",
+      "Admin kitchen queue for updating live order status",
+      "Mobile-friendly menu filters and simple checkout steps",
     ],
     metrics: [
       { label: "Backend", value: "Laravel + MySQL" },
@@ -480,7 +460,7 @@ export const projects: Project[] = [
       { label: "Flow", value: "Menu → Checkout" },
     ],
     featured: true,
-    githubUrl: "https://github.com/muhammadfaizan01-DEV/QuickSnack-Commerce",
+    githubUrl: "https://github.com/muhammadfaizan01-DEV",
   },
 ];
 
@@ -491,7 +471,7 @@ export const experience = [
     year: "2024 - Present",
     location: "Karachi, Pakistan (Remote / Hybrid)",
     description:
-      "Building and deploying full-stack web applications using C#, ASP.NET Core, Angular, PHP, Laravel, SQL Server, and MySQL. Shipped live applications including CookSmart and FanHub Plus on RunASP with RESTful APIs, relational databases, and responsive frontends.",
+      "Building web apps and client systems with C#, ASP.NET Core, Angular, PHP, Laravel, SQL Server, and MySQL. Shipped live apps including CookSmart, FanHub Plus, Meraki, Hamdan Fastfood, and a counter POS for Hamdan Fast Food.",
   },
   {
     title: "Software Engineering Student (HDSE)",
@@ -499,7 +479,7 @@ export const experience = [
     year: "2025 - Present",
     location: "Karachi, Pakistan",
     description:
-      "Winner of the Aptech Internal Vision Competition (1st Place) and selected institute representative for the External Vision Competition. Hands-on coursework and capstone projects in OOP, C#/.NET, Angular, PHP/Laravel, and database design.",
+      "Won 1st Place in the Aptech Internal Vision Competition and was selected to represent the institute in the External Vision Competition. Completing project work in OOP, C#/.NET, Angular, PHP/Laravel, and SQL database design.",
   },
 ];
 
@@ -510,7 +490,7 @@ export const education = [
     year: "2025 - Present",
     status: "Currently in 3rd Semester",
     description:
-      "Focused on Full-Stack Software Engineering, C# & ASP.NET Core, Angular, PHP & Laravel, Relational Database Design (SQL Server / MySQL), and RESTful API Architecture.",
+      "Coursework in Full-Stack Software Engineering, C# & ASP.NET Core, Angular, PHP & Laravel, SQL Server, MySQL, and REST APIs.",
   },
   {
     degree: "Matriculation (Science)",
@@ -518,7 +498,7 @@ export const education = [
     year: "2022",
     status: "Completed",
     description:
-      "Foundation in Mathematics, Computer Science, and Analytical Problem Solving.",
+      "Secondary schooling with a focus on Mathematics and Computer Science.",
   },
 ];
 
@@ -528,14 +508,14 @@ export const achievements = [
     organization: "Aptech Computer Education",
     badge: "1st Place Award",
     description:
-      "Awarded 1st place for full-stack project execution, database design, and software architecture.",
+      "Won 1st place for building and presenting a working full-stack web application and database schema.",
   },
   {
     title: "Selected – External Vision Competition",
     organization: "Inter-Institute Competition",
     badge: "Institute Representative",
     description:
-      "Project selected to represent Aptech in inter-institute software showcase competitions.",
+      "Selected to represent Aptech in the inter-institute student software competition.",
   },
 ];
 
@@ -545,7 +525,7 @@ export const services = [
     title: "ASP.NET Core & Angular Web Apps",
     tagline: "C#, .NET Web API & Angular SPAs",
     description:
-      "Full-stack business web applications built with C# ASP.NET Core REST APIs, Entity Framework Core, SQL Server, and modular Angular single-page frontends.",
+      "Business web apps built with C# ASP.NET Core APIs, Entity Framework Core, SQL Server, and modular Angular frontends.",
     includes: [
       "C# & ASP.NET Core Web APIs",
       "Angular Single-Page Applications",
@@ -558,7 +538,7 @@ export const services = [
     title: "Laravel & PHP Web Systems",
     tagline: "Custom MVC Portals & Dashboards",
     description:
-      "Custom web portals, booking systems, and admin dashboards built with PHP 8 and Laravel using clean MVC architecture, Eloquent ORM, and MySQL.",
+      "Portals, booking systems, and admin panels written in PHP 8 and Laravel using MVC structure, Eloquent ORM, and MySQL.",
     includes: [
       "Laravel MVC Web Applications",
       "RESTful APIs & Blade / Tailwind UI",
@@ -571,7 +551,7 @@ export const services = [
     title: "E-Commerce & CMS Storefronts",
     tagline: "Custom Stores, Shopify & WordPress",
     description:
-      "Responsive online stores built with custom Laravel cart engines, Shopify, or WordPress WooCommerce with clean product filtering and checkout flows.",
+      "Online stores built with custom Laravel or React carts, Shopify, or WordPress WooCommerce with clear product filtering and checkout.",
     includes: [
       "Custom Laravel E-Commerce Stores",
       "Shopify Store Setup & Theme Edits",
@@ -582,9 +562,9 @@ export const services = [
   {
     number: "04",
     title: "REST APIs & Database Design",
-    tagline: "SQL Server & MySQL Architecture",
+    tagline: "SQL Server & MySQL Structure",
     description:
-      "Normalized relational databases, stored procedures, and documented REST endpoints built for reliability, clean data integrity, and easy frontend integration.",
+      "Normalized SQL Server and MySQL databases alongside documented REST endpoints tested for reliable frontend integration.",
     includes: [
       "REST API Design & Postman Testing",
       "SQL Server & MySQL Normalization",
@@ -598,36 +578,36 @@ export const process = [
   {
     number: "01",
     title: "Requirements & Schema Design",
-    body: "We define the core user flows, roles, and relational database tables (SQL Server or MySQL) before writing application code.",
+    body: "First I map out the user roles, main screens, and SQL Server or MySQL database tables before writing code.",
   },
   {
     number: "02",
     title: "Full-Stack Implementation",
-    body: "I build the backend REST APIs (ASP.NET Core or Laravel), connect the database, and craft the responsive frontend (Angular, React, or Tailwind).",
+    body: "Next I build the backend APIs (ASP.NET Core, Laravel, or Express), hook up the database, and build the frontend UI.",
   },
   {
     number: "03",
     title: "Testing, Deployment & Handover",
-    body: "Endpoints and UI flows are tested across desktop and mobile, deployed to hosting (e.g., RunASP / cloud), and handed over with clean documentation.",
+    body: "Finally I test endpoints and forms across desktop and mobile, deploy the site online, and hand over the source code.",
   },
 ];
 
 export const faqs = [
   {
     q: "What tech stack do you work with most?",
-    a: "My primary stack is C# / ASP.NET Core with Angular and SQL Server (used in my live projects CookSmart and FanHub Plus), alongside PHP 8 / Laravel with MySQL, JavaScript/TypeScript, React, Tailwind CSS, WordPress, and Shopify.",
+    a: "My main stack is C# / ASP.NET Core with Angular and SQL Server (used in CookSmart and FanHub Plus), alongside PHP 8 / Laravel with MySQL, React, TypeScript, Tailwind CSS, WordPress, and Shopify.",
   },
   {
     q: "Can I see your live deployed projects?",
-    a: "Yes! You can try CookSmart (http://cook-smart.runasp.net/), FanHub Plus (https://fan-hub-plus.runasp.net/), Meraki Storefront (https://pixel-perfect-replay-10777.lovable.app/), and Hamdan Fastfood (https://hamdan-flavors-unfold.vercel.app/) live in your browser, or inspect them directly in the interactive Device Preview panel.",
+    a: "Yes. You can open CookSmart (http://cook-smart.runasp.net/), FanHub Plus (https://fan-hub-plus.runasp.net/), Meraki (https://pixel-perfect-replay-10777.lovable.app/), and Hamdan Fastfood (https://hamdan-flavors-unfold.vercel.app/) right in your browser, or test them inside the Device Preview panel.",
   },
   {
     q: "Are you available for internships, junior/mid full-stack roles, or freelance work?",
-    a: "Yes. I am currently in my 3rd semester of Aptech HDSE in Karachi and available for full-time/part-time developer roles as well as freelance web application projects.",
+    a: "Yes. I am currently in my 3rd semester of Aptech HDSE in Karachi and available for internships, junior full-stack roles, and freelance web or POS projects.",
   },
   {
     q: "How can we get in touch?",
-    a: "Use the contact form below to send a message directly, email muhammadfaizan01234567@gmail.com, connect on LinkedIn, or message me on WhatsApp at +92 302 2679431.",
+    a: "Use the contact form below to send an email straight to my inbox, write to muhammadfaizan01234567@gmail.com, connect on LinkedIn, or message me on WhatsApp at +92 302 2679431.",
   },
 ];
 
