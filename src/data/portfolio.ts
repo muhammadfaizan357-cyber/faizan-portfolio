@@ -2,6 +2,7 @@ import fanhubImg from "@/assets/project-fanhub.png";
 import cooksmartImg from "@/assets/project-cooksmart.png";
 import merakiImg from "@/assets/project-meraki.jpg";
 import hamdanImg from "@/assets/project-hamdan.jpg";
+import hamdanPosImg from "@/assets/project-hamdan-pos.jpg";
 
 export interface Project {
   slug: string;
@@ -282,6 +283,67 @@ export const projects: Project[] = [
     ],
     featured: true,
     liveUrl: "https://hamdan-flavors-unfold.vercel.app/",
+    githubUrl: "https://github.com/muhammadfaizan01-DEV",
+  },
+  {
+    slug: "hamdan-pos-system",
+    title: "Hamdan Fast Food POS",
+    category: "Desktop Point of Sale & Kitchen Portal",
+    filterGroup: "E-Commerce & CMS",
+    year: "2026",
+    role: "Full-Stack Developer",
+    client: "Hamdan Fast Food (Client Project)",
+    services: [
+      "React 19 & TypeScript",
+      "Node.js & Express",
+      "Tailwind CSS",
+      "JSON File Persistence",
+      "Local Desktop App",
+    ],
+    image: hamdanPosImg,
+    summary:
+      "Offline-ready counter POS and kitchen order portal built for a local fast-food shop to handle walk-in, takeaway, delivery, and WhatsApp bills in one place.",
+    overview:
+      "I built this desktop POS system for Hamdan Fast Food so their counter staff can punch bills quickly without relying on slow cloud tools or monthly POS subscriptions. It runs locally on an Express server with instant disk persistence and supports multiple open bills, combo deals, kitchen tracking, and daily sales summaries.",
+    problem:
+      "During busy dinner hours, taking walk-in, phone, and WhatsApp orders on paper slips led to missed items, slow billing, and no clear record of daily sales or combo discounts.",
+    whatIBuilt: [
+      "Multi-tab POS billing screen supporting parallel active bills, held bills, takeaway, dine-in, and delivery channels",
+      "Quick keyboard search ('/' shortcut), category tabs, and one-click combo deal bundles with automatic savings calculation",
+      "Live kitchen orders queue, catalog & deals manager, and daily sales dashboard",
+      "Local Express backend persisting every order, draft, and catalog update directly to disk so nothing is lost on refresh",
+    ],
+    challenges: [
+      {
+        challenge:
+          "Keeping the counter responsive when staff switch between three or four open customer bills at once.",
+        solution:
+          "Stored active and held bill tabs in synced state with debounced Express API saves so switching bills stays instant.",
+      },
+      {
+        challenge:
+          "Making sure the shop owner could run the POS every day without opening a terminal or installing heavy database software.",
+        solution:
+          "Packaged the Express + React build with a one-click launcher and local JSON storage that starts automatically on their counter PC.",
+      },
+    ],
+    screenshots: [
+      {
+        src: hamdanPosImg,
+        caption: "Hamdan Fast Food POS — Multi-bill counter terminal with combo deals and order channels",
+      },
+    ],
+    highlights: [
+      "Multi-bill tabs for Walk-in, WhatsApp, Phone & Web orders",
+      "Combo deals, held bills, kitchen queue & daily sales dashboard",
+      "Runs locally on the shop PC with zero monthly fees",
+    ],
+    metrics: [
+      { label: "Type", value: "Desktop POS" },
+      { label: "Stack", value: "React + Express" },
+      { label: "Client", value: "Hamdan Food" },
+    ],
+    featured: true,
     githubUrl: "https://github.com/muhammadfaizan01-DEV",
   },
   {
